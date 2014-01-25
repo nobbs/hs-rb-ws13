@@ -1,0 +1,59 @@
+%!TEX root = main.tex
+
+\documentclass[
+  % draft,
+  a4paper,
+  11pt,
+  DIV14,
+  oneside,
+  parskip,
+  titlepage=false
+]{scrartcl}
+\usepackage{etex}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx, color}          % Packages für Graphiken und Colors
+\usepackage[colorlinks=false]{hyperref}
+
+%%% Mathematik-Packages
+\usepackage{amsmath, amssymb} % AMS Packages
+\usepackage{stmaryrd}
+\usepackage[standard,amsmath,thmmarks,hyperref]{ntheorem}
+\usepackage{mathtools}
+
+\include{math}
+
+% \usepackage{fixme}
+\usepackage[final]{showkeys}
+\usepackage{newclude}
+\usepackage{scrextend}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+
+% Einrückung bei Listen
+\usepackage{enumitem}
+
+\subject{Hauptseminar Reduzierte-Basis-Methoden}
+\title{A-posteriori-Fehlerschätzer}
+\author{Alexej Disterhoft}
+
+\begin{document}
+
+\maketitle
+
+\include*{einleitung}
+\include*{motivation_herleitung}
+\include*{berechnung}
+\include*{beispiel}
+
+\appendix
+\include*{anhang}
+
+\end{document}

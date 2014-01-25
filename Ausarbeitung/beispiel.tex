@@ -1,0 +1,150 @@
+%!TEX root = main.tex
+
+\section{Numerische Beispiele} % (fold)
+\label{sec:beispiel}
+
+Der in diesem Abschnitt verwendete \texttt{MatLab}-Sourcecode kann unter \url{https://github.com/nobbs/hs-rb-ws13} eingesehen werden.
+
+\subsection{Eindimensionaler Parameterraum} % (fold)
+\label{sub:eindimensionaler_parameterraum}
+
+% subsection eindimensionaler_parameterraum (end)
+
+Wir betrachten zum Abschluss das bereits bekannte Thermal-Block-Beispiel, allerdings nur für einen eindimensionalen Parameter.
+
+Es sei $\Omega = [ 0, 1 ]^2 \subset \mathbb{R}^2$, für dieses Beispiel teilen wir das Gebiet in zwei Rechtecke $\Omega_1 = [0, \frac{1}{2}] \times [ 0, 1 ] $ und $\Omega_2 = [ \frac{1}{2}, 1 ] \times [ 0, 1 ]$ auf. Wir teilen den Rand von $\Omega$ auf in $\Gamma_1 = [0, 1] \times \{ 0 \}$, $\Gamma_2 = \{ 1 \} \times [0, 1]$, $\Gamma_1 = [0, 1] \times \{ 1 \}$ und $\Gamma_4 = \{ 0 \} \times [0, 1]$.
+
+Sei der Parameterbereich gegeben durch $\mathcal D = [0.1, 10]$. Als Referenzparameter wählen wir $\bar \mu = 1$.
+Das Variatonsproblem lautet nun:
+\begin{addmargin}[2em]{2em}
+Sei $\mu \in \mathcal D$. Gesucht ist ein $u(\mu) \in H^1(\Omega)$, sodass gilt
+\begin{equation}
+    \mu \int_{\Omega_1} \nabla u(\mu) \nabla v \, \mathrm d x + \int_{\Omega_2} \nabla u(\mu) \nabla v \, \mathrm d x = \int_{\Gamma_1} v \, \mathrm{d} x, \qquad \forall v \in H^1(\Omega),
+\end{equation}
+mit den Neumann-Randbedingungen
+\begin{equation}
+    \frac{\partial u(\mu)}{\partial \nu} = 1
+    \quad \text{auf}~ \Gamma_1,
+    \qquad
+    \frac{\partial u(\mu)}{\partial \nu} = 0
+    \quad \text{auf} ~ \Gamma_2 ~\text{und}~ \Gamma_4,
+\end{equation}
+und der Dirichlet-Randbedingung
+\begin{equation}
+    u(\mu) = 0 \quad \text{auf} ~\Gamma_3.
+\end{equation}
+Wir interessieren uns nun für
+\begin{equation}
+    s(\mu) = \int_{\Gamma_1} u(\mu) \, \mathrm{d}x.
+\end{equation}
+\end{addmargin}
+
+Wir schreiben dieses Variatonsproblem nun als
+\begin{equation}
+    a(w, v;\mu) = \Theta_a^1(\mu) a^1(w, v) + \Theta_a^2(\mu) a^2(w, v) = \Theta_f^1(\mu) f^1(v),
+\end{equation}
+wobei
+\begin{align}
+    a^1(w, v) &= \int_{\Omega_1} \nabla w \nabla v \, \mathrm{d}x,
+    \quad
+    &a^2(w, v) &= \int_{\Omega_2} \nabla w \nabla v \, \mathrm{d}x,
+    \quad
+    &f^1(v) &= \int_{\Gamma_1} v \, \mathrm{d}x,
+    \\
+    \Theta_a^1(\mu) &= \mu,
+    &\Theta_a^2(\mu) &= 1,
+    &\Theta_f^1(\mu) &= 1.
+\end{align}
+
+Damit erhalten wir für unsere untere Schranke der Koerzivitätskonstante
+\begin{equation}
+    \alpha_\text{LB}(\mu) = \min_{k = 1 \ldots 2} \frac{\Theta_a^k(\mu)}{\Theta_a^k(\bar \mu)} = \min \left(  \frac{\mu}{\bar \mu}, 1  \right)  = \min(\mu, 1).
+\end{equation}
+
+Analog zu $\alpha_\text{LB}$ aus Abschnitt \ref{sub:untere_schranke_f_r_die_koerzivit_tskonstante} lässt sich für die Stetigkeitskonstante eine obere Schranke bestimmen mittels
+\begin{equation}
+    \gamma(\mu) \leq \gamma_\text{UB}(\mu) := \Theta_a^{\max, \bar \mu}(\mu) = \max_{k = 1 \ldots 2} \frac{\Theta_a^k(\mu)}{\Theta_a^k(\bar \mu)} = \max(\mu, 1), \qquad \forall \mu \in \mathcal D.
+\end{equation}
+Damit können wir nun $\eta^s_{\max,\text{UB}}$ nach oben abschätzen und erhalten für unsere Wahl von $\mathcal D$
+\begin{equation}
+    \eta^s_{\max,\text{UB}} = \max_{\mu \in D} \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} \leq \max_{\mu \in D} \frac{\gamma_\text{UB}(\mu)}{\alpha_{\text{LB}}(\mu)} \leq 10.
+\end{equation}
+
+Wir verwenden $\Xi_\text{train} = \Xi_\text{test} \subset \mathcal D$ mit $10000$ Elementen, welche zufällig gleichverteilt aus $\mathcal D$ gewählt werden.
+Als ersten Snapshot-Parameter wählen wir $\mu_1 = \bar \mu$, alle weiteren werden mittels Greedy-Verfahren bestimmt. Als Fehlertoleranz für $s(\mu) - s_N(\mu)$ wird $10^{-8}$ verwendet.
+
+\begin{figure}[tb]
+    \begin{center}
+        \tiny
+        \newlength\figureheight
+        \newlength\figurewidth
+        \setlength\figureheight{5cm}
+        \setlength\figurewidth{0.4\textwidth}
+        \begin{subfigure}[b]{0.45\textwidth}
+            ~
+            % \input{../Matlab/ThermalBlock1Par/test1.tikz}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+            ~
+            % \input{../Matlab/ThermalBlock1Par/test2.tikz}
+        \end{subfigure}
+
+        \begin{subfigure}[b]{0.45\textwidth}
+            % \input{../Matlab/ThermalBlock1Par/test3.tikz}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+            % \input{../Matlab/ThermalBlock1Par/test4.tikz}
+        \end{subfigure}
+    \end{center}
+    \caption{Vergleich des tatsächlichen Fehlers $s(\mu) - s_N(\mu)$ (gestrichelt) und Fehlerschätzer $\Delta^s_N(\mu)$ über $\Xi_\text{test} \subset \mathcal D$ mit $10^4$ Elementen für $N = 1 \ldots 4$.}
+    \label{fig:plot_s_fehler}
+\end{figure}
+
+Diese wird bereits für $N = 4$ erreicht, wie man an den Ergebnissen in Tabelle \ref{tab:eindim} erkennt.
+
+\begin{table}[tb]
+    \begin{center}
+        \begin{tabular}{l|cccc}
+        $N$ & $\Delta^s_{N,\max}$ & $\eta^s_{N,\text{ave}}$ & $\eta^s_{N,\max}$ & $\rho^s_{\text{err}, N}$ \\
+        \hline
+            $1$ & $1.7855 \cdot 10^{+00}$ & $1.4809$ & $1.8186$ & $1.8186$ \\
+            $2$ & $9.9356 \cdot 10^{-02}$ & $2.2728$ & $8.1925$ & $1.1817$ \\
+            $3$ & $2.7957 \cdot 10^{-07}$ & $2.4607$ & $5.5208$ & $2.7146$ \\
+            $4$ & $4.3910 \cdot 10^{-11}$ & $2.4864$ & $-$ & $2.4431$ \\
+        \end{tabular}
+        \caption{Der hohe Wert von $\eta^s_{\max,\text{UB}}$ für $N = 4$ liegt sehr wahrscheinlich an Rechenungenauigkeiten, da dieses Verhalten erst bei $\Delta^s_{N,\max} < 10^{-8}$ zu beobachten ist.}
+        \label{tab:eindim}
+    \end{center}
+\end{table}
+
+Abbildung \ref{fig:plot_s_fehler} zeigt, welche Parameter vom Greedy-Verfahren gewählt werden, und liefert einen visuellen Vergleich zwischen tatsächlichem Fehler und dem Fehlerschätzer.
+
+\subsection{Mehrdimensionale Parameterräume} % (fold)
+\label{sub:mehrdimensionale_parameterr_ume}
+
+Wir können das oben betrachtete Problem auch auf höherdimensionale Parameterräume verallgemeinern. Teilen wir $\Omega$ in vier gleichgroße Quadrate statt den zwei Rechtecken ein, dann erhalten wir damit einen dreidimensionalen Parameterraum, zum Beispiel $\mathcal D = [0.1, 10]^3 \subset \mathbb{R}^3$.
+
+Wir wählen nun $\Xi_\text{train} = \Xi_\text{test} \subset \mathcal D$ mit $10^5$ Elementen, um so ein besseres Bild des Fehlers über $\mathcal D$ zu erhalten. Tabelle \ref{tab:dreidim} zeigt die Entwicklung des Fehlers für dieses Beispiel.
+
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{l|cccc}
+        $N$ & $\Delta^s_{N,\max}$ & $\eta^s_{N,\text{ave}}$ & $\eta^s_{N,\max}$ & $\rho^s_{\text{err}, N}$ \\
+        \hline
+            $1$ & $1.7855 \cdot 10^{+00}$ & $1.4809$ & $1.8186$ & $1.8186$ \\
+            $2$ & $9.9356 \cdot 10^{-02}$ & $2.2728$ & $8.1925$ & $1.1817$ \\
+            $3$ & $2.7957 \cdot 10^{-07}$ & $2.4607$ & $5.5208$ & $2.7146$ \\
+            $4$ & $4.3910 \cdot 10^{-11}$ & $2.4864$ & $-$ & $2.4431$ \\
+        \end{tabular}
+        \caption{Auch hier liegen die hohen Werte von $\eta^s_{\max,\text{UB}}$ für große $N$ sehr wahrscheinlich an Rechenungenauigkeiten.}
+        \label{tab:dreidim}
+    \end{center}
+\end{table}
+
+% subsection mehrdimensionale_parameterr_ume (end)
+
+% paragraph numerische_ergebnisse (end)
+
+% section beispiel (end)

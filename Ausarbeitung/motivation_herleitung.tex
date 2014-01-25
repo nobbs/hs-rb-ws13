@@ -1,0 +1,345 @@
+%!TEX root = main.tex
+
+\section{Herleitung eines A-posteriori-Fehlerschätzers} % (fold)
+\label{sec:herleitung}
+
+% Zunächst wiederholen wir einige Begriffe und Notationen aus den vorherigen Vorträgen.
+
+\subsection{Wiederholung} % (fold)
+\label{sub:wiederholung}
+
+Es sei $\Omega \subset \mathbb{R}^d$ ein Definitionsbereich und sei $X$ ein Hilbertraum der Funktionen auf $\Omega$.
+Oftmals wird $d \in \left\{ 1, 2, 3 \right\}$ und  $H^1_0(\Omega) \subset X \subset H^1(\Omega)$ gewählt.
+Der sogenannte Parameterraum $\mathcal D \subset \mathbb{R}^n$ sei eine kompakte Menge.
+
+Es sei für festes $\mu \in \mathcal D$ folgendes Variationsproblem gegeben:
+\begin{addmargin}[2em]{2em}
+    Gesucht ist eine Lösung $u(\mu) \in X$, sodass
+    \begin{equation}
+        a(u(\mu), v; \mu) = f(v; \mu), \quad \forall v \in X,
+    \end{equation}
+    gilt.
+    Bestimme $s(\mu) := f(u(\mu); \mu)$.
+\end{addmargin}
+Dabei sei $a \colon X \times X \times \mathcal D \to \mathbb{R}$ eine parametrische stetige Bilinearform und $f \colon X \times \mathcal D \to \mathbb{R}$ ein parametrisches stetiges lineares Funktional.
+
+Wir haben bereits gesehen, dass dieses Variationsproblem wohldefiniert ist, wenn die Bilinearform $a$ koerziv ist, oder die inf-sup-Bedingung erfüllt.
+Wir beschränken uns auf den Fall, dass $a$ eine koerzive Bilinearform ist.
+% Den Fall, dass $a$ die inf-sup-Bedingung erfüllt, werden wir später kurz ansprechen.
+
+Von nun an bezeichnen wir den Funktionenraum $X$ mit $X^e$ und die exakte Lösung $u(\mu)$ des obigen Variationsproblems mit $u^e(\mu) \in X^e$.
+
+Ist $a$ koerziv, dann insbesondere auch positiv definit.
+Ist $a$ zudem eine symmetrische Bilinearform, dann definiert $a(\cdot, \cdot; \mu)$ für jedes $\mu \in \mathcal D$ ein Skalarprodukt auf $X^e$.
+Für den Fall, dass $a$ nicht symmetrisch ist, können wir einfach zum symmetrischen Anteil
+\begin{equation}
+    a_s(w, v; \mu) = \frac{1}{2} \Big[ a(w, v; \mu) + a(v, w; \mu) \Big]
+\end{equation}
+übergehen, da dieser ebenfalls koerziv ist.
+Wir erhalten somit eine Familie von Skalarprodukten auf $X^e$ durch
+\begin{equation}
+    \skprod{w}{v}_{\mu} = a(w, v; \mu), \quad v, w \in X^e, \quad \mu \in \mathcal D,
+\end{equation}
+die jeweils eine Norm
+\begin{equation}
+    \norm{w}_{\mu} = \sqrt{\skprod{w}{w}_{\mu}} = \sqrt{a(w, w; \mu)}, \quad w \in X^e, \quad \mu \in \mathcal D,
+\end{equation}
+induzieren.
+Wir wählen aus dem Parameterraum $\mathcal D$ einen Referenzparameter $\bar \mu \in \mathcal D$ aus und bezeichnen das zugehörige Skalarprodukt als $X^e$-Skalarprodukt und analog die induzierte Norm als $X^e$-Norm
+\begin{equation}
+    \skprod{w}{v}_{X^e} = a(w, v; \bar \mu),
+% \end{equation}
+    \qquad
+% \begin{equation}
+    \norm{w}_{X^e} = \sqrt{\skprod{w}{w}_{X^e}}.
+\end{equation}
+Die Wahl dieses $\bar \mu \in \mathcal D$ hat zwar keine Auswirkungen auf die Ergebnisse der Reduzierte-Basis-Methode, wohl aber auf Präzision der hier behandelten A-posteriori-Fehlerschätzer.
+
+Mit $X = X_{\mathcal N} \subset X^e$, wobei $\dim X = \mathcal N \in \mathbb{N}$, bezeichnen wir den Finite-Elemente-Ansatzraum und die jeweilige Finite-Elemente-Lösung mit $u(\mu) = u_{\mathcal N}(\mu) \in X$.
+Als endlichdimensionaler Unterraum des Hilbertraums $X^e$ ist $X$ abgeschlossen und damit selbst ein Hilbertraum.
+Insbesondere vererben sich die obigen Skalarprodukte und Normen alle von $X^e$ auf $X$.
+
+Analog bezeichnen wir mit $X_N \subset X$, $\dim X_N = N \ll \mathcal N$, den Reduzierte-Basis-Ansatzraum und mit $u_N(\mu) \in X_N$ die Reduzierte-Basis-Lösung des obigen Variationsproblems.
+
+\subsection{Herleitung} % (fold)
+\label{sub:herleitung}
+
+Wir führen weitere Einschränkungen an $a$ ein.
+Die Bilinearform $a$ sei nun \emph{compliant}, das heißt, symmetrisch und parametrisch koerziv, inbesondere also auch parametrisch affin.
+Dies bedeutet, dass ein $Q_a \in \mathbb{N}$ existiert, sowie Abbildungen
+\begin{equation}
+    \Theta_a^k \colon \mathcal D \to \mathbb{R}, \quad 1 \leq k \leq Q_a,
+\end{equation}
+mit $\Theta_a^k(\mu) > 0$, für alle $\mu \in \mathcal D$, und symmetrische positiv-definite Bilinearformen
+\begin{equation}
+    a^k \colon X \times X \to \mathbb{R}, \quad 1 \leq k \leq Q_a,
+\end{equation}
+existieren.
+Für die parametrische Koerzivität ist insbesondere die Koerzivität von $a$ notwendig.
+
+Wir definieren den Fehler $e \colon \mathcal D \to X$ zwischen der Finite-Elemente-Lösung $u(\mu)$ und der Reduzierte-Basis-Lösung $u_N(\mu)$ als
+\begin{equation}
+    \label{eq:fehler_fe_und_rb_lsg}
+    e(\mu) := u(\mu) - u_N(\mu), \quad \mu \in \mathcal D.
+\end{equation}
+Einsetzen in das Variationsproblem und Ausnutzen der Bilinearität von $a$ liefert
+\begin{align}
+    a(e(\mu), v; \mu)
+    &= a(u(\mu) - u_N(\mu), v; \mu)
+    = a(u(\mu), v; \mu) - a(u_N(\mu), v; \mu) \\
+    &= f(v; \mu) - a(u_N(\mu), v; \mu)
+\end{align}
+für alle $v \in X$.
+Wir bezeichnen nun
+\begin{equation}
+    \label{eq:def_residuum}
+    r(v; \mu) = f(v; \mu) - a(u_N(\mu), v; \mu), \quad v \in X,
+\end{equation}
+als Residuum.
+Das Residuum hängt offensichtlich nur noch von der Reduzierte-Basis-Lösung $u_N(\mu) \in X_N$ ab, nicht aber von der Finite-Elemente-Lösung $u(\mu) \in X$.
+
+\begin{Lemma}
+    Das Residuum $r(\cdot; \mu) \colon X \to \mathbb{R}$ ist für alle $\mu \in \mathcal D$ eine stetige lineare Abbildung, kurz also $r(\cdot; \mu) \in X'$ für alle $\mu \in \mathcal D$.
+
+    \begin{Beweis}
+    Sei $\mu \in \mathcal D$ beliebig.
+    Die Linearität von $r(\cdot; \mu)$ ergibt sich direkt aus der Linearität von $f(\cdot; \mu)$ und der Bilinearität von $a(\cdot, \cdot; \mu)$.
+    Ebenso überträgt sich auch die Stetigkeit von $f(\cdot; \mu)$ und $a(\cdot, \cdot; \mu)$ auf $r(\cdot; \mu)$.
+    \end{Beweis}
+\end{Lemma}
+
+% \fxnote{vorher erwähnen?}
+Da $X$ mit dem Skalarprodukt $\skprod{\cdot}{\cdot}_X$ ein Hilbertraum und $r(\cdot; \mu) \in X'$ ist, erhalten wir durch den Rieszschen Darstellungssatz \ref{satz:rieszscher_darstellungssatz} ein $\hat e(\mu) \in X$, sodass
+\begin{equation}
+    \label{eq:residuum_riesz}
+    r(v; \mu) = \skprod{\hat e(\mu)}{v}_X, \quad \forall v \in X,
+\end{equation}
+gilt.
+Insbesondere können wir also
+\begin{equation}
+    \label{eq:a_von_e_gl_skprod_e}
+    a(e(\mu), v; \mu) = \skprod{\hat e(\mu)}{v}_X, \quad \forall v \in X,
+\end{equation}
+schreiben und es gilt $\hat e(\bar \mu) = e(\bar \mu)$.
+Außerdem liefert der Rieszsche Darstellungssatz
+\begin{equation}
+    \label{eq:residuum_norm_gl_hat_e_norm}
+    \norm{r(\cdot; \mu)}_{X'} := \sup_{v \in X \setminus \left\{ 0 \right\}} \frac{r(v; \mu)}{\norm{v}_X} = \norm{\hat e(\mu)}_X.
+\end{equation}
+% \fxnote{wieso?}
+Diese Darstellung der Norm des Residuums $r(\cdot; \mu)$ durch das Element $\hat e(\mu)$ ist essentiell für die spätere Berechnung des A-posteriori-Fehlerschätzers.
+
+Bezeichne nun mit $\alpha(\mu) = \alpha_{\mathcal N}(\mu)$ die Koerzivitätskonstante von $a$ über $X$, das heißt es ist
+\begin{equation}
+            \alpha(\mu) = \inf_{w \in X} \frac{a(w, w; \mu)}{\norm{w}^2_X} > 0
+\end{equation}
+Sei $\alpha_{\text{LB}}(\mu) > 0$ eine untere Schranke für dieses $\alpha(\mu)$, also
+\begin{equation}
+    \label{eq:alpha_lb}
+    0 < \alpha_{\text{LB}}(\mu) < \alpha(\mu), \quad \forall \mu \in \mathcal D.
+\end{equation}
+Wie man eine solche Schranke bestimmt, wird im nächsten Abschnitt behandelt.
+Zunächst aber leiten wir unter Verwendung dieser Schranke den gesuchten A-posteriori-Fehlerschätzer her.
+
+\begin{Definition}
+    Unter den oben genannten Voraussetzungen können wir folgende Fehlerschätzer definieren.
+    Für den Fehler $e(\mu)$ in der $X$-Norm beziehungsweise in der Energienorm setzen wir
+    \begin{equation}
+        \Delta^{\text{en}}_N(\mu) := \frac{\norm{\hat e(\mu)}_X}{\sqrt{\alpha_{\text{LB}(\mu)}}}
+        , \quad
+        \Delta_N(\mu) := \frac{\norm{\hat e(\mu)}_X}{\alpha_{\text{LB}(\mu)}}
+        , \qquad \mu \in \mathcal D.
+    \end{equation}
+    Für den Fehler $s(\mu) - s_N(\mu)$ des Ausgabefunktionals definiere
+    \begin{equation}
+        \Delta^s_N(\mu) := \frac{\norm{\hat e(\mu)}_X^2}{\alpha_{\text{LB}(\mu)}}, \quad \mu \in \mathcal D.
+    \end{equation}
+\end{Definition}
+
+% subsection herleitung (end)
+
+\subsection{Eigenschaften der A-posteriori-Fehlerschätzer} % (fold)
+\label{sub:eigenschaften_der_a_}
+
+Wir beweisen zunächst einige Aussagen über die gewonnenen Fehlerschätzer, bevor wir uns um die Berechnung dieser kümmern.
+
+\begin{Satz}
+    Die Fehlerschätzer sind \emph{zuverlässig}, denn es gilt
+    \begin{equation}
+        \norm{u(\mu) - u_N(\mu)}_{\mu} \leq \Delta^{\text{en}}_N(\mu),
+        \qquad
+        \norm{u(\mu) - u_N(\mu)}_X \leq \Delta_N(\mu)
+    \end{equation}
+    und
+    \begin{equation}
+        s(\mu) - s_N(\mu) \leq \Delta^s_N(\mu)
+    \end{equation}
+    für alle $\mu \in \mathcal D$.
+
+    \begin{Beweis}
+        Sei $\mu \in \mathcal D$ beliebig.
+        Wir betrachten für den Fehler $e(\mu)$ als Erstes den Energienorm-Fehlerschätzer.
+        Nach Definition, Gleichung \eqref{eq:a_von_e_gl_skprod_e} und der Cauchy-Schwarz-Ungleichung gilt
+        \begin{equation}
+            \label{eq:beweis_satz_untere_schranke_a}
+            \norm{e(\mu)}_{\mu}^2 = a(e(\mu), e(\mu); \mu) = \skprod{\hat e(\mu)}{e(\mu)}_X \leq \norm{\hat e(\mu)}_X \norm{e(\mu)}_X.
+        \end{equation}
+        Aus der Koerzivität von $a$ und Ungleichung \eqref{eq:alpha_lb} erhalten wir
+        \begin{equation}
+            \label{eq:beweis_satz_untere_schranke_b}
+            \alpha_{\text{LB}}(\mu) \norm{e(\mu)}^2_X \leq \alpha(\mu) \norm{e(\mu)}^2_X \leq a(e(\mu), e(\mu); \mu) = \norm{e(\mu)}^2_{\mu}
+        \end{equation}
+        und damit
+        \begin{equation}
+            \label{eq:beweis_satz_untere_schranke_c}
+            \sqrt{\alpha_{\text{LB}}(\mu)} \norm{e(\mu)}_X \leq \norm{e(\mu)}_{\mu}.
+        \end{equation}
+        Aus den Ungleichungen \eqref{eq:beweis_satz_untere_schranke_a} und \eqref{eq:beweis_satz_untere_schranke_c} erhalten wir also
+        \begin{equation}
+            \Delta^{\text{en}}_N(\mu)
+            =
+            \frac{\norm{\hat e(\mu)}_X}{\sqrt{\alpha_{\text{LB}(\mu)}}}
+            \geq
+            \frac{\sqrt{\alpha_{\text{LB}(\mu)}}\norm{e(\mu)}_{\mu}}{\sqrt{\alpha_{\text{LB}(\mu)}}}
+            =
+            \norm{e(\mu)}_{\mu}.
+        \end{equation}
+
+        Für den Fehlerschätzer $\Delta_N(\mu)$ der $X$-Norm verwenden wir die obigen Ungleichungen \eqref{eq:beweis_satz_untere_schranke_a} und \eqref{eq:beweis_satz_untere_schranke_b} und erhalten direkt
+        \begin{equation}
+            \Delta_N(\mu) = \frac{\norm{\hat e(\mu)}_X}{\alpha_\text{LB}(\mu)} \geq \norm{e(\mu)}_X.
+        \end{equation}
+
+        Als nächstes beweisen wir die Behauptung für den $s$-Fehler. Es gilt zunächst
+        \begin{equation}
+            a(e(\mu), v; \mu) = a(u(\mu), v; \mu) - a(u_N(\mu), v; \mu) = f(v; \mu) - f(v; \mu) = 0, \quad \forall v \in X_N.
+        \end{equation}
+        Da $a$ symmetrisch ist und $u_N(\mu) \in X_N$, gilt damit
+        \begin{equation}
+            a(u_N(\mu), e(\mu); \mu) = a(e(\mu), u_N(\mu); \mu) = 0.
+        \end{equation}
+        Außerdem erinnern wir an
+        \begin{equation}
+            s(\mu) = f(u(\mu); \mu), \qquad s_N(\mu) = f(u_N(\mu); \mu).
+        \end{equation}
+        Zusammen ergibt dies
+        \begin{align}
+            s(\mu) - s_N(\mu) &= f(u(\mu); \mu) - f(u_N(\mu); \mu) = f(e(\mu); \mu) \\
+            &= a(u(\mu), e(\mu); \mu) = a(u(\mu), e(\mu); \mu) - a(u_N(\mu), e(\mu); \mu)\\
+            &= a(e(\mu), e(\mu); \mu) = \norm{e(\mu)}_{\mu}^2.
+        \end{align}
+        Da außerdem
+        \begin{equation}
+            \Delta^s_N(\mu) = \left( \Delta^{\text{en}}_N(\mu) \right)^2,
+        \end{equation}
+        folgt die Behauptung aus dem Beweis für die Energienorm.
+    \end{Beweis}
+\end{Satz}
+
+Als nächstes werden wir zeigen, dass diese Fehlerschätzer \emph{präzise} sind, also relativ nahe am tatsächlichen Fehler.
+Dafür ist die Stetigkeit von $a$ wichtig; wir bezeichnen
+\begin{equation}
+    \gamma(\mu) = \sup_{w\in X} \sup_{v \in X} \frac{a(w, v; \mu)}{\norm{w}_X \norm{v}_X} < \infty
+\end{equation}
+als Stetigkeitskonstante $\gamma(\mu) = \gamma_{\mathcal N}(\mu)$ von $a$ über $X$.
+
+\begin{Satz}
+    Die Fehlerschätzer erfüllen
+        \begin{equation}
+        \Delta^{\text{en}}_N(\mu) \leq \sqrt{\frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)}} \norm{u(\mu) - u_N(\mu)}_{\mu}
+        , \qquad
+         \Delta_N(\mu) \leq \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)}\norm{u(\mu) - u_N(\mu)}_X
+    \end{equation}
+    und
+    \begin{equation}
+        \Delta^s_N(\mu) \leq \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} \left( s(\mu) - s_N(\mu)  \right)
+    \end{equation}
+    für alle $\mu \in \mathcal D$.
+
+    \begin{Beweis}
+        Sei $\mu \in \mathcal D$ beliebig. Wegen der Stetigkeit von $a$ gilt
+        \begin{equation}
+            \label{eq:beweis_satz_obere_schranke_a}
+            \norm{\hat e(\mu)}_{\mu} = \sqrt{a(\hat e(\mu), \hat e(\mu); \mu)} \leq \sqrt{\gamma(\mu)}\norm{\hat e(\mu)}_X.
+        \end{equation}
+        Außerdem erhalten wir mit Hilfe von Gleichung \eqref{eq:a_von_e_gl_skprod_e} und der Cauchy-Schwarz-Ungleichung
+        \begin{equation}
+            \label{eq:beweis_satz_obere_schranke_notag}
+            \norm{\hat e(\mu)}^2_X = \skprod{\hat e(\mu)}{\hat e(\mu)}_X = a(e(\mu), \hat e(\mu); \mu)
+            = \skprod{e(\mu)}{\hat e(\mu)}_{\mu} \leq \norm{e(\mu)}_{\mu} \norm{\hat e(\mu)}_{\mu}.
+        \end{equation}
+        Zusammen liefert dies
+        \begin{equation}
+            \label{eq:beweis_satz_obere_schranke_b}
+            \norm{\hat e(\mu)}^2_X \leq \norm{e(\mu)}_{\mu} \norm{\hat e(\mu)}_{\mu} \leq \sqrt{\gamma(\mu)} \norm{e(\mu)}_{\mu} \norm{\hat e(\mu)}_X
+        \end{equation}
+        und damit bereits die Abschätzung für den Energienorm-Fehlerschätzer
+        \begin{equation}
+            \Delta_N^{\text{en}}(\mu) = \frac{\norm{\hat e(\mu)}_X}{\sqrt{\alpha_{\text{LB}}(\mu)}} \leq \sqrt{\frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)}} \norm{e(\mu)}_{\mu}.
+        \end{equation}
+
+        Für den $X$-Norm Fehlerschätzer erhalten mit Hilfe von \eqref{eq:beweis_satz_obere_schranke_b} und \eqref{eq:beweis_satz_obere_schranke_a} mit $e(\mu)$ statt $\hat e(\mu)$
+        \begin{equation}
+            \Delta_N(\mu)
+            = \frac{\norm{\hat e(\mu)}_X}{\alpha_\text{LB}(\mu)}
+            \leq \frac{\sqrt{\gamma(\mu)}\norm{e(\mu)}_{\mu} }{\alpha_\text{LB}(\mu)}
+            \leq \frac{\gamma(\mu)}{\alpha_\text{LB}(\mu)} \norm{e(\mu)}_X.
+        \end{equation}
+
+        Wie zuvor gilt
+        \begin{equation}
+            \Delta^s_N(\mu) = \left( \Delta^{\text{en}}_N(\mu) \right)^2,
+        \end{equation}
+        womit die Behauptung für den $s$-Fehler ebenfalls bereits gezeigt ist.
+    \end{Beweis}
+\end{Satz}
+% subsection eigenschaften_der_a_ (end)
+
+Diese beiden Sätze fassen wir zusammen zu
+
+\begin{Korollar}
+    \label{korollar:effektivitaeten}
+    Wir definieren für unsere Fehlerschätzer jeweils die Effektivität durch
+    \begin{equation}
+        \eta^{\text{en}}_N(\mu) := \frac{\Delta^{\text{en}}_N(\mu)}{\norm{e(\mu)}_{\mu}}
+        , \qquad
+        \eta_N(\mu) = \frac{\Delta_N(\mu)}{\norm{e(\mu)}}_X
+        , \qquad
+        \eta^{s}_N(\mu) = \frac{\Delta^s_N(\mu)}{s(\mu) - s_N(\mu)}.
+    \end{equation}
+    Dann gilt
+    \begin{align}
+        1 \leq \eta^{\text{en}}_N(\mu) \leq \sqrt{\frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)}}, \qquad
+        1 \leq \eta_N(\mu),~\eta^{s}_N(\mu) \leq \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)},
+    \end{align}
+    für alle $\mu \in \mathcal D$.
+\end{Korollar}
+Man sieht leicht ein, dass für unsere Anwendungszwecke die Effektivität jeweils möglichst nahe an der unteren Schranke Eins liegen sollte.
+
+\subsection{Durchschnittliche und maximale Effektivität} % (fold)
+\label{sub:durchschnittliche_und_maximale_effektivitaet}
+
+Um Aussagen über die Güte der Fehlerschätzer zu treffen, ist es sinnvoll sich die durchschnittlichen beziehungsweise maximalen Effektivitäten anzusehen.
+Sei dazu $\Xi_{\text{test}} \subset \mathcal D$ eine endliche Teilmenge des Parameterraumes mit $n_\text{test} \in \mathbb{N}$ Elementen.
+
+Wir nennen, wobei $\bullet$ Platzhalter für \glqq{}$\text{en}$\grqq{}, \glqq{}$s$\grqq{}, \glqq{} \grqq{} sei,
+\begin{equation}
+    \eta^\bullet_{N,\max} := \max_{\mu \in \Xi_\text{test}} \eta^\bullet_N(\mu), \qquad
+    \eta^\bullet_{N,\text{ave}} := \frac{1}{n_\text{test}} \sum_{\mu \in \Xi_\text{test}} \eta^\bullet_N(\mu)
+\end{equation}
+maximale respektive durchschnittliche Effektivität über $\Xi_\text{test}$.
+
+Wir beschränken uns nun im wesentlichen auf die Effektivität für $s$. Korollar \ref{korollar:effektivitaeten} liefert uns
+\begin{equation}
+    \eta^s_{N,\max} \leq \max_{\mu \in \Xi_\text{test}} \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} \leq \max_{\mu \in D} \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} =: \eta^s_{\max,\text{UB}}.
+\end{equation}
+Diese obere Schranke ist sowohl unabhängig von der Dimension $N$ des Reduzierte-Basis-Ansatzraumes als auch von der Dimension $\mathcal N$ des Finite-Elemente-Ansatzraumes und bestärkt uns damit in der Wahl unserer Fehlerschätzer. Allerdings kann $\eta^s_{\max,\text{UB}}$ recht groß werden, da hierbei vom \emph{worst-case} ausgegangen wird.
+
+Ein weiteres Maß für die Güte der Fehlerschätzer liefert der Quotient des maximalen geschätzten Fehlers und des maximalen echten Fehlers (statt wie oben das Maximum der Quotienten dieser Werte), gegeben durch
+\begin{equation}
+     \rho^s_{\text{err},N} := \frac{\max\limits_{\mu \in \Xi_\text{test}} \Delta_N^s(\mu)}{\max\limits_{\mu \in \Xi_\text{test}} (s(\mu) - s_N(\mu))}.
+\end{equation}
+
+% subsection durchschnittliche_und_maximale_effektivitaet   (end)
+
+% section herleitung (end)
