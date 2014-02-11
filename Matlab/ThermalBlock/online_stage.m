@@ -19,15 +19,18 @@ S_fe = F' * U_fe;
 err_true_s = S_fe - S_rb;
 
 % Fehlerverifikation
-[err_s, err_en, alpha_LB] = estimate_error(U_rb, Theta, F, AkF, AkAk, X_inv);
-err_s;
+if tgl_certify == 1
+    [err_s, err_en, alpha_LB] = estimate_error(U_rb, Theta, F, AkF, AkAk, X_inv);
+end
 
 disp(['Parameter           mu = ']);
 online_mu
 disp(['FE-Lösung:       s(mu) = ', num2str(S_fe, '%10.6f')]);
 disp(['RB-Lösung:     s_N(mu) = ', num2str(S_rb, '%10.6f')]);
 disp(['Echter Fehler:           ', num2str(err_true_s, '%10.6e\n')]);
-disp(['Fehlerschätzer:          ', num2str(err_s, '%10.6e\n')]);
+if tgl_certify == 1
+    disp(['Fehlerschätzer:          ', num2str(err_s, '%10.6e\n')]);
+end
 
 if tgl_plot == 1
     figure
