@@ -30,10 +30,10 @@ num_ps_no_dbc = size(Ak{1}, 1);
 
 %% Offline-Stage Daten
 N_max = 100;
-tolerance = 1e-10;
+tolerance = 1e-8;
 
 % Trainings-Parameter
-Xi_train = generate_parameter_grid(mu_min, mu_max, P, n_train, 'mc_log');
+Xi_train = generate_parameter_grid(mu_min, mu_max, P, n_train, 'mc_lin');
 n_train = size(Xi_train, 2);
 
 % Test-Parameter

@@ -8,8 +8,9 @@ F_rb = Z' * F;
 
 % Vorbereitung für Fehlerberechnung
 if tgl_certify == 1
-    estimate_error_prep;
+%     estimate_error_prep;
+    estimate_error_prep_mat;
 end
 
 % Zufällig Parameter wählen
-random_mu = @() generate_parameter_grid(mu_min, mu_max, P, 1, 'mc_lin');
+random_mu = @() generate_parameter_grid(mu_min, mu_max, P, 1, 'mc_log');

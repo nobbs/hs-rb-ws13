@@ -1,5 +1,6 @@
 % Parameter wählen
 Theta = [online_mu; 1];
+Q_a = size(Ak, 1);
 
 % FE- und RB-Gls
 A_rb = Ak_rb{num_Ak};
@@ -20,7 +21,8 @@ err_true_s = S_fe - S_rb;
 
 % Fehlerverifikation
 if tgl_certify == 1
-    [err_s, err_en, alpha_LB] = estimate_error(U_rb, Theta, F, AkF, AkAk, X_inv);
+%     [err_s, err_en, alpha_LB] = estimate_error(U_rb, Theta, F, AkF, AkAk, X_inv);
+    [err_s_mat, err_en_mat, alpha_LB_mat] = estimate_error_mat(U_rb, Theta, G, Q_a, N);
 end
 
 disp(['Parameter           mu = ']);
@@ -29,7 +31,8 @@ disp(['FE-Lösung:       s(mu) = ', num2str(S_fe, '%10.6f')]);
 disp(['RB-Lösung:     s_N(mu) = ', num2str(S_rb, '%10.6f')]);
 disp(['Echter Fehler:           ', num2str(err_true_s, '%10.6e\n')]);
 if tgl_certify == 1
-    disp(['Fehlerschätzer:          ', num2str(err_s, '%10.6e\n')]);
+%     disp(['Fehlerschätzer:          ', num2str(err_s, '%10.6e\n')]);
+    disp(['Fehlerschätzer:          ', num2str(err_s_mat, '%10.6e\n')]);
 end
 
 if tgl_plot == 1
