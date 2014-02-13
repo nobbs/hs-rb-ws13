@@ -3,7 +3,6 @@ global tgl_test;
 global tgl_pause;
 global tgl_train_eq_test;
 global tgl_logplot;
-global tgl_print;
 
 %% Domain laden
 load('geom_dreixdrei.mat');
@@ -18,4 +17,3 @@ tgl_test = 1;
 tgl_pause = 0;
 tgl_train_eq_test = 1
 tgl_logplot = 0
-tgl_print = 0
