@@ -22,11 +22,11 @@ maximale respektive durchschnittliche Effektivität des Fehlerschätzers $\Delta
 
 Wir beschränken uns nun im Wesentlichen auf die Effektivität von $\Delta^s_N$. Korollar \ref{korollar:effektivitaeten} liefert uns
 \begin{equation}
-    \eta^s_{N,\max} \leq \max_{\mu \in \Xi_\text{test}} \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} \leq \max_{\mu \in D} \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} =: \eta^s_{\max,\text{UB}}.
+    \eta^s_{N,\max} \leq \max_{\mu \in \Xi_\text{test}} \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} \leq \max_{\mu \in \mathcal D} \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} =: \eta^s_{\max,\text{UB}}.
 \end{equation}
-Diese obere Schranke ist sowohl unabhängig von der Dimension $N$ des Reduzierte-Basis-Ansatzraumes als auch von der Dimension $\mathcal N$ des Finite-Elemente-Ansatzraumes und bestärkt uns damit in der Wahl unserer Fehlerschätzer. Allerdings kann $\eta^s_{\max,\text{UB}}$ recht groß werden, da hierbei vom \emph{worst-case} ausgegangen wird.
+Diese obere Schranke ist sowohl unabhängig von der Dimension $N$ des Reduzierte-Basis-Ansatzraumes als auch von der Dimension $\mathcal N$ des Galerkin-Ansatzraumes und bestärkt uns damit in der Wahl unserer Fehlerschätzer. Allerdings kann $\eta^s_{\max,\text{UB}}$ recht groß werden, da hierbei vom \emph{worst-case} ausgegangen wird.
 
-Ein weiteres Maß für die Güte der Fehlerschätzer liefert der Quotient des maximalen geschätzten Fehlers und des maximalen echten Fehlers (statt wie oben das Maximum der Quotienten dieser Werte), gegeben durch
+Ein weiteres Maß für die Güte der Fehlerschätzer liefert der Quotient des maximalen geschätzten Fehlers und des maximalen tatsächlichen Fehlers (statt wie oben das Maximum der Quotienten dieser Werte), gegeben durch
 \begin{equation}
      \rho^s_{\text{err},N} := \frac{\max\limits_{\mu \in \Xi_\text{test}} \Delta_N^s(\mu)}{\max\limits_{\mu \in \Xi_\text{test}} (s(\mu) - s_N(\mu))}.
 \end{equation}
@@ -38,9 +38,9 @@ Ein weiteres Maß für die Güte der Fehlerschätzer liefert der Quotient des ma
 
 % subsection eindimensionaler_parameterraum (end)
 
-Wir betrachten nun das Thermal-Block-Beispiel aus [TODO:Quelle], allerdings nur für einen eindimensionalen Parameter.
+Wir betrachten nun das Thermal-Block-Beispiel aus \cite{Paro}, allerdings nur für einen eindimensionalen Parameter.
 
-Es sei $\Omega = [ 0, 1 ]^2 \subset \mathbb{R}^2$, für dieses Beispiel teilen wir das Gebiet in zwei Rechtecke $\Omega_1 = [0, \frac{1}{2}] \times [ 0, 1 ] $ und $\Omega_2 = [ \frac{1}{2}, 1 ] \times [ 0, 1 ]$ auf. Wir teilen den Rand von $\Omega$ auf in $\Gamma_1 = [0, 1] \times \{ 0 \}$, $\Gamma_2 = \{ 1 \} \times [0, 1]$, $\Gamma_1 = [0, 1] \times \{ 1 \}$ und $\Gamma_4 = \{ 0 \} \times [0, 1]$.
+Es sei $\Omega = [ 0, 1 ]^2 \subset \mathbb{R}^2$. Wir teilen das Gebiet in zwei Rechtecke $\Omega_1 = [0, \frac{1}{2}] \times [ 0, 1 ] $ und $\Omega_2 = [ \frac{1}{2}, 1 ] \times [ 0, 1 ]$ auf und unterteilen den Rand von $\Omega$ in $\Gamma_1 = [0, 1] \times \{ 0 \}$, $\Gamma_2 = \{ 1 \} \times [0, 1]$, $\Gamma_1 = [0, 1] \times \{ 1 \}$ und $\Gamma_4 = \{ 0 \} \times [0, 1]$.
 
 Sei der Parameterbereich gegeben durch $\mathcal D = [0.1, 10]$. Als Referenzparameter wählen wir $\bar \mu = 1$.
 Das Variatonsproblem lautet nun:
@@ -110,20 +110,20 @@ Als ersten Snapshot-Parameter wählen wir $\mu_1 = \bar \mu$, alle weiteren werd
         \setlength\figurewidth{0.4\textwidth}
         \begin{subfigure}[b]{0.45\textwidth}
             ~
-            % \input{../Matlab/ThermalBlock1Par/test1.tikz}
+            \input{Plots/1d_par_s_1.tikz}
         \end{subfigure}
         \hfill
         \begin{subfigure}[b]{0.45\textwidth}
             ~
-            % \input{../Matlab/ThermalBlock1Par/test2.tikz}
+            \input{Plots/1d_par_s_2.tikz}
         \end{subfigure}
 
         \begin{subfigure}[b]{0.45\textwidth}
-            % \input{../Matlab/ThermalBlock1Par/test3.tikz}
+            \input{Plots/1d_par_s_3.tikz}
         \end{subfigure}
         \hfill
         \begin{subfigure}[b]{0.45\textwidth}
-            % \input{../Matlab/ThermalBlock1Par/test4.tikz}
+            \input{Plots/1d_par_s_4.tikz}
         \end{subfigure}
     \end{center}
     \caption{Vergleich des tatsächlichen Fehlers $s(\mu) - s_N(\mu)$ (gestrichelt) und Fehlerschätzer $\Delta^s_N(\mu)$ über $\Xi_\text{test} \subset \mathcal D$ mit $10^4$ Elementen für $N = 1 \ldots 4$.}
@@ -134,13 +134,13 @@ Diese wird bereits für $N = 4$ erreicht, wie man an den Ergebnissen in Tabelle 
 
 \begin{table}[tb]
     \begin{center}
-        \begin{tabular}{l|cccc}
+        \begin{tabular}{r|llll}
         $N$ & $\Delta^s_{N,\max}$ & $\eta^s_{N,\text{ave}}$ & $\eta^s_{N,\max}$ & $\rho^s_{\text{err}, N}$ \\
         \hline
-            $1$ & $1.7855 \cdot 10^{+00}$ & $1.4809$ & $1.8186$ & $1.8186$ \\
-            $2$ & $9.9356 \cdot 10^{-02}$ & $2.2728$ & $8.1925$ & $1.1817$ \\
-            $3$ & $2.7957 \cdot 10^{-07}$ & $2.4607$ & $5.5208$ & $2.7146$ \\
-            $4$ & $4.3910 \cdot 10^{-11}$ & $2.4864$ & $-$ & $2.4431$ \\
+            $1$ & $1.7856 \cdot 10^{0}$ & $1.4812$ & $1.8186$ & $1.8186$ \\
+            $2$ & $9.9302 \cdot 10^{-2}$ & $2.2520$ & $8.1952$ & $1.1818$ \\
+            $3$ & $2.7852 \cdot 10^{-7}$ & $2.4487$ & $5.9672$ & $2.7117$ \\
+            $4$ & $4.3904 \cdot 10^{-11}$ & $2.3990$ & $57.6900$ & $2.4440$ \\
         \end{tabular}
         \caption{Der hohe Wert von $\eta^s_{\max,\text{UB}}$ für $N = 4$ liegt sehr wahrscheinlich an Rechenungenauigkeiten, da dieses Verhalten erst bei $\Delta^s_{N,\max} < 10^{-8}$ zu beobachten ist.}
         \label{tab:eindim}
@@ -158,18 +158,54 @@ Wir wählen nun $\Xi_\text{train} = \Xi_\text{test} \subset \mathcal D$ mit $10^
 
 \begin{table}[h]
     \begin{center}
-        \begin{tabular}{l|cccc}
+        \begin{tabular}{r|llll}
         $N$ & $\Delta^s_{N,\max}$ & $\eta^s_{N,\text{ave}}$ & $\eta^s_{N,\max}$ & $\rho^s_{\text{err}, N}$ \\
         \hline
-            $1$ & $1.7855 \cdot 10^{+00}$ & $1.4809$ & $1.8186$ & $1.8186$ \\
-            $2$ & $9.9356 \cdot 10^{-02}$ & $2.2728$ & $8.1925$ & $1.1817$ \\
-            $3$ & $2.7957 \cdot 10^{-07}$ & $2.4607$ & $5.5208$ & $2.7146$ \\
-            $4$ & $4.3910 \cdot 10^{-11}$ & $2.4864$ & $-$ & $2.4431$ \\
+            $1$ & $1.6574 \cdot 10^{1}$ & $2.5379$ & $29.7780$ & $3.6535$ \\
+            % $2$ & $4.3748 \cdot 10^{0}$ & $2.2085$ & $19.8043$ & $3.5034$ \\
+            % $3$ & $6.0695 \cdot 10^{0}$ & $2.7280$ & $45.2241$ & $5.7009$ \\
+            % $4$ & $6.1546 \cdot 10^{0}$ & $2.2541$ & $45.5506$ & $6.5551$ \\
+            $5$ & $1.1762 \cdot 10^{0}$ & $2.2814$ & $46.7323$ & $8.5654$ \\
+            % $6$ & $1.1289 \cdot 10^{0}$ & $4.2444$ & $62.2367$ & $8.7753$ \\
+            % $7$ & $4.4049 \cdot 10^{-1}$ & $4.7197$ & $64.1045$ & $15.1326$ \\
+            % $8$ & $1.2082 \cdot 10^{-1}$ & $4.5329$ & $42.8482$ & $6.8982$ \\
+            % $9$ & $1.0926 \cdot 10^{-2}$ & $3.8287$ & $57.1067$ & $5.2397$ \\
+            $10$ & $4.5800 \cdot 10^{-3}$ & $4.9657$ & $51.0632$ & $29.2355$ \\
+            % $11$ & $1.7237 \cdot 10^{-3}$ & $4.9454$ & $51.4003$ & $13.6833$ \\
+            % $12$ & $5.1684 \cdot 10^{-4}$ & $4.6870$ & $53.3714$ & $9.7341$ \\
+            % $13$ & $1.6319 \cdot 10^{-4}$ & $4.4641$ & $55.5663$ & $3.0734$ \\
+            % $14$ & $6.5975 \cdot 10^{-5}$ & $4.0050$ & $58.5909$ & $4.0218$ \\
+            $15$ & $1.3786 \cdot 10^{-5}$ & $4.1535$ & $63.5388$ & $3.0056$ \\
+            % $16$ & $5.4876 \cdot 10^{-6}$ & $3.9654$ & $49.5149$ & $5.7093$ \\
+            % $17$ & $4.5788 \cdot 10^{-6}$ & $3.9664$ & $49.8546$ & $7.6339$ \\
+            % $18$ & $2.1817 \cdot 10^{-6}$ & $5.0265$ & $56.0621$ & $7.1431$ \\
+            % $19$ & $9.4641 \cdot 10^{-7}$ & $4.5956$ & $54.2310$ & $3.1401$ \\
+            $20$ & $5.6652 \cdot 10^{-7}$ & $4.7061$ & $59.4396$ & $9.4472$ \\
+            % $21$ & $3.8955 \cdot 10^{-7}$ & $4.6886$ & $57.4457$ & $7.6115$ \\
+            % $22$ & $3.5702 \cdot 10^{-7}$ & $4.7276$ & $56.2459$ & $8.4688$ \\
+            % $23$ & $2.2527 \cdot 10^{-7}$ & $4.8083$ & $58.0783$ & $11.1384$ \\
+            % $24$ & $1.2223 \cdot 10^{-7}$ & $4.8561$ & $56.4697$ & $6.5937$ \\
+            $25$ & $3.2681 \cdot 10^{-8}$ & $4.4157$ & $59.7853$ & $2.9218$ \\
+            % $26$ & $2.4876 \cdot 10^{-8}$ & $3.8898$ & $48.0801$ & $2.3823$ \\
+            $27$ & $8.1872 \cdot 10^{-9}$ & $4.0380$ & $53.6857$ & $5.3194$
         \end{tabular}
         \caption{Auch hier liegen die hohen Werte von $\eta^s_{\max,\text{UB}}$ für große $N$ sehr wahrscheinlich an Rechenungenauigkeiten.}
         \label{tab:dreidim}
     \end{center}
 \end{table}
+
+\begin{figure}[tb]
+    \begin{center}
+        \small
+        % \newlength\figureheight
+        % \newlength\figurewidth
+        \setlength\figureheight{6cm}
+        \setlength\figurewidth{0.6\textwidth}
+        \input{Plots/3dplot.tikz}
+    \end{center}
+    \caption{Entwicklung von $\Delta{}^\text{s}_{\text{N,max}}$ in Abhängigkeit von $N$ beim dreidimensionalen Parameterraum. Bei $N = 27$ wird die geforderte Fehlertoleranz von $10^{-8}$ erstmals erreicht.}
+    \label{fig:3par_plot_fehler_nach_N}
+\end{figure}
 
 % subsection mehrdimensionale_parameterr_ume (end)
 

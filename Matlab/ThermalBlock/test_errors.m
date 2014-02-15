@@ -131,5 +131,4 @@ function [Delta_s_N_max, eta_s_N_ave, eta_s_N_max, rho_S_err_N] = test_errors(Ak
 	eta_s_N_ave   = nanmean(Stat_eff_s(isfinite(Stat_eff_s)));
 	eta_s_N_max   = max(Stat_eff_s(isfinite(Stat_eff_s)));
 	rho_S_err_N   = Delta_s_N_max / max(Stat_diff_s);
-	toc
 end

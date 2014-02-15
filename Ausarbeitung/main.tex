@@ -26,6 +26,11 @@
 \usepackage[standard,amsmath,thmmarks,hyperref]{ntheorem}
 \usepackage{mathtools}
 
+% \usepackage{biblatex}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+% \addbibresource{lit.bib}
+
 \include{math}
 
 % \usepackage{fixme}
@@ -48,12 +53,16 @@
 
 \maketitle
 
-\include*{einleitung}
-\include*{motivation_herleitung}
-\include*{berechnung}
-\include*{beispiel}
+
+
+\include{einleitung}
+\include{motivation_herleitung}
+\include{berechnung}
+\include{beispiel}
 
 \appendix
-\include*{anhang}
+\include{anhang}
+\bibliography{lit}
+% \printbibliography
 
 \end{document}
