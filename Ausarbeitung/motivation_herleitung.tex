@@ -46,7 +46,7 @@ sodass
 für alle $w, v \in X^e$ und alle $\mu \in \mathcal D$ gilt.
 
 
-Wir haben bereits gesehen, dass dieses parametrische Variationsproblem unter bestimmten Voraussetzungen, zum Beispiel, wenn $a$ koerziv ist oder die inf-sup-Bedingung erfüllt, wohldefiniert ist.
+Wir haben bereits gesehen, dass das obige parametrische Variationsproblem unter bestimmten Voraussetzungen, zum Beispiel, wenn $a$ koerziv ist oder die inf-sup-Bedingung erfüllt, wohldefiniert ist.
 Auch hier nehmen wir eine Einschränkung vor und betrachten hauptsächlich den Fall, dass $a$ koerziv ist.
 
 Die Schreibweise $\bullet^e$ verwenden wir, um zu kennzeichnen, dass es sich dabei um die \emph{exakte} Variante des Variationsproblems handelt.
@@ -79,7 +79,7 @@ Wir wählen aus dem Parameterraum $\mathcal D$ einen Referenzparameter $\bar \mu
 \end{equation}
 Die Wahl dieses $\bar \mu \in \mathcal D$ hat zwar keine Auswirkungen auf die Ergebnisse der Reduzierte-Basis-Methode, wohl aber auf Präzision der hier behandelten A-posteriori-Fehlerschätzer.
 
-Mit $X = X_{\mathcal N} \subset X^e$, wobei $\dim X = \mathcal N \in \mathbb{N}$, bezeichnen wir den endlichdimensionalen Galerkin-Ansatzraum und die dazugehörige Lösung mit $u(\mu) = u_{\mathcal N}(\mu) \in X$.
+Mit $X \subset X^e$, wobei $\dim X = \mathcal N \in \mathbb{N}$, bezeichnen wir den endlichdimensionalen Galerkin-Ansatzraum und die dazugehörige Lösung mit $u(\mu) \in X$.
 Als endlichdimensionaler Unterraum des Hilbertraums $X^e$ ist $X$ abgeschlossen und damit selbst ein Hilbertraum.
 Insbesondere vererben sich die obigen Skalarprodukte und Normen alle von $X^e$ auf $X$.
 
@@ -89,7 +89,7 @@ Auch $X_N$ ist ein Hilbertraum.
 \subsection{Herleitung} % (fold)
 \label{sub:herleitung}
 
-Für diesen Abschnitt sei nun $a$ eine koerzive, parametrisch affine, symmetrische, stetige Bilinearform und $f$ ein parametrisch affines stetiges lineares Funktional.
+Für diesen Abschnitt sei $a$ eine koerzive, parametrisch affine, symmetrische, stetige Bilinearform und $f$ ein parametrisch affines, stetiges, lineares Funktional.
 
 Wir beschränken uns nun auf die Herleitung eines Fehlerschätzers für den Fehler zwischen der Lösung $u(\mu)$ der Galerkin-Methode und der Lösung $u_N(\mu)$ der Reduzierte-Basis-Methode. Wegen der Dreiecksungleichung gilt
 \begin{equation}
@@ -147,12 +147,12 @@ Außerdem liefert der Rieszsche Darstellungssatz \ref{satz:rieszscher_darstellun
     \norm{r(\cdot; \mu)}_{X'} := \sup_{v \in X \setminus \left\{ 0 \right\}} \frac{\abs{r(v; \mu)}}{\norm{v}_X} = \norm{\hat e(\mu)}_X.
 \end{equation}
 % \fxnote{wieso?}
-Diese Darstellung der Norm des Residuums $r(\cdot; \mu)$ durch das Element $\hat e(\mu)$ ist essentiell für die spätere Berechnung des A-posteriori-Fehlerschätzers.
+Diese Darstellung der Norm des Residuums durch das Element $\hat e(\mu)$ ist essentiell für die spätere Berechnung des A-posteriori-Fehlerschätzers.
 
 Als weiteren Bestandteil benötigen wir für unseren Fehlerschätzer die Koerzivität von $a$.
 Es sei also
 \begin{equation}
-            \alpha(\mu) = \inf_{w \in X} \frac{a(w, w; \mu)}{\norm{w}^2_X} > 0
+            \alpha(\mu) = \inf_{w \in X} \frac{a(w, w; \mu)}{\norm{w}^2_X} > 0, \quad \mu \in \mathcal D,
 \end{equation}
 die Koerzivitätskonstante von $a$ über $X$.
 Mit $\alpha_{\text{LB}}(\mu) > 0$ bezeichnen wir eine untere Schranke für dieses $\alpha(\mu)$, es gelte also
@@ -165,7 +165,7 @@ Zunächst aber leiten wir unter Verwendung dieser Schranke den gesuchten A-poste
 
 \begin{Definition}
     Unter den oben genannten Voraussetzungen können wir folgende Fehlerschätzer definieren.
-    Für den Fehler $e(\mu)$ in der $X$-Norm beziehungsweise in der $\mu$-Norm (oder auch Energienorm) setzen wir
+    Für den Fehler $e(\mu)$ in der $\mu$-Norm (oder auch Energienorm) beziehungsweise in der $X$-Norm setzen wir
     \begin{equation}
         \Delta^{\text{en}}_N(\mu) := \frac{\norm{\hat e(\mu)}_X}{\sqrt{\alpha_{\text{LB}(\mu)}}}
         , \quad
@@ -185,7 +185,7 @@ Zunächst aber leiten wir unter Verwendung dieser Schranke den gesuchten A-poste
 
 Wir beweisen zunächst einige Aussagen über die gewonnenen Fehlerschätzer, bevor wir uns um die Berechnung dieser kümmern.
 
-Dazu benötigen wir, wenn auch nur für die für uns weniger interessante obere Schranke der Fehlerschätzer, die Stetigkeitskonstante
+Dazu benötigen wir, wenn auch nur für die, für uns weniger interessante, obere Schranke der Fehlerschätzer, die Stetigkeitskonstante
 \begin{equation}
     \gamma(\mu) = \sup_{w \in X} \sup_{v \in X} \frac{a(w, v; \mu)}{\norm{w}_X \norm{v}_X} < \infty, \quad \mu \in \mathcal D,
 \end{equation}
@@ -247,7 +247,7 @@ von $a$ über $X$.
         \begin{equation}
             \norm{\hat e(\mu)}_X \norm{e(\mu)}_X \geq \norm{e(\mu)}_{\mu} \norm{e(\mu)}_{\mu} \geq \sqrt{\alpha_{\text{LB}}(\mu)} \norm{e(\mu)}_X \norm{e(\mu)}_{\mu}.
         \end{equation}
-        Kürzen von $\norm{e(\mu)}_X$ und anwenden dieser Ungleichung auf $\Delta^\text{en}_N$ liefert die Abschätzung nach unten, denn
+        Kürzen von $\norm{e(\mu)}_X$ und Anwenden dieser Ungleichung auf $\Delta^\text{en}_N$ liefert die Abschätzung nach unten, denn
         \begin{equation}
             \Delta^{\text{en}}_N(\mu)
             =
@@ -312,7 +312,7 @@ von $a$ über $X$.
         \begin{equation}
             \Delta^s_N(\mu) = \left( \Delta^{\text{en}}_N(\mu) \right)^2,
         \end{equation}
-        folgen die Abschätzung von $\Delta^s_N$ aus dem Beweis für die $\Delta^\text{en}_N$.
+        folgen die Abschätzungen von $\Delta^s_N$ aus dem Beweis für die $\Delta^\text{en}_N$.
     \end{Beweis}
 \end{Satz}
 
@@ -335,6 +335,6 @@ Als nächstes führen wir den Begriff der Effektivität der Fehlerschätzer ein 
     \end{align}
     für alle $\mu \in \mathcal D$.
 \end{Korollar}
-Man sieht leicht ein, dass es für unsere Anwendungszwecke wünschenswert ist, wenn die Effektivitäten sehr nahe der Eins liegen; unsere Fehlerschätzer die tatsächlichen Fehler also nur minimal überschätzen.
+Man sieht leicht ein, dass es für unsere Anwendungszwecke wünschenswert ist, wenn die Effektivitäten nahe der Eins liegen; unsere Fehlerschätzer die tatsächlichen Fehler also nur minimal überschätzen.
 
 % section herleitung (end)

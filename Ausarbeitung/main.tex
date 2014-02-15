@@ -16,9 +16,10 @@
 
 \usepackage[ngerman]{babel}
 \usepackage{lmodern}
-\usepackage{microtype}
-\usepackage{graphicx, color}          % Packages für Graphiken und Colors
+% \usepackage{microtype}
+\usepackage{graphicx, color}
 \usepackage[colorlinks=true]{hyperref}
+
 
 %%% Mathematik-Packages
 \usepackage{amsmath, amssymb} % AMS Packages
@@ -26,14 +27,10 @@
 \usepackage[standard,amsmath,thmmarks,hyperref]{ntheorem}
 \usepackage{mathtools}
 
-% \usepackage{biblatex}
-\usepackage{natbib}
-\bibliographystyle{plainnat}
-% \addbibresource{lit.bib}
+\bibliographystyle{amsplain}
 
 \include{math}
 
-% \usepackage{fixme}
 \usepackage[final]{showkeys}
 \usepackage{newclude}
 \usepackage{scrextend}
@@ -53,16 +50,13 @@
 
 \maketitle
 
-
-
-\include{einleitung}
-\include{motivation_herleitung}
-\include{berechnung}
-\include{beispiel}
+\include*{einleitung}
+\include*{motivation_herleitung}
+\include*{berechnung}
+\include*{beispiel}
 
 \appendix
-\include{anhang}
+\include*{anhang}
 \bibliography{lit}
-% \printbibliography
 
 \end{document}

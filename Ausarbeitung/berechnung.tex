@@ -4,11 +4,11 @@
 \label{sec:berechnung_des_fehlersch_tzers}
 
 Wir wollen uns nun mit der tatsächlichen Berechnung der Fehlerschätzer befassen.
-Dazu werden wir uns zuerst $\alpha_\text{LB}(\mu)$ widmen und danach eine Offline-Online-Berechnung für $\norm{\hat e(\mu)}_X$ herleiten.
+Dazu werden wir uns zuerst $\alpha_\text{LB}$ widmen und danach eine Offline-Online-Berechnung für $\norm{\hat e(\mu)}_X$ herleiten.
 
 \subsection{Untere Schranke für die Koerzivitätskonstante} % (fold)
 \label{sub:untere_schranke_f_r_die_koerzivit_tskonstante}
-Wir führen erneut weitere Einschränkungen ein. Die Bilinearform $a$ sei nun \emph{compliant} (vgl [TODO: Quelle]), also wie zuvor symmetrisch und nun auch parametrisch koerziv. Dies bedeutet, dass die affine Zerlegung von $a$ folgende Eigenschaften erfüllen muss: es gilt $\Theta_a^k(\mu) > 0$, für $1 \leq k \leq Q_a,$ und die Bilinearformen $a^k$ sind symmetrisch und positiv definit.
+Wir führen erneut weitere Einschränkungen ein. Die Bilinearform $a$ sei nun zusätzlich parametrisch koerziv. Dies bedeutet, dass die affine Zerlegung von $a$ folgende Eigenschaften erfüllen muss: es gilt $\Theta_a^k(\mu) > 0$, $1 \leq k \leq Q_a,$ für alle $\mu \in \mathcal D$, und die Bilinearformen $a^k$ sind symmetrisch und positiv definit.
 
 Definiere nun eine Funktion $\Theta_a^{\min,\bar \mu} \colon \mathcal D \to \mathbb{R}_+$ durch
 \begin{equation}
@@ -46,7 +46,7 @@ Setzen wir nun
 \end{equation}
 dann haben wir damit die für unseren Fehlerschätzer notwendige untere Schranke für die Koerzivitätskonstante $\alpha(\mu)$.
 
-Dieses einfache Verfahren funktioniert nur bei parametrisch koerziven Bilinearformen. Ist $a$ nur koerziv, aber nicht parametrisch koerziv, dann können wir mittels der sogenannten \emph{Succesive Constraint Method}, SCM, durch etwas mehr Aufwand ebenfalls eine untere Schranke bestimmen. Dazu betrachtet man
+Dieses einfache Verfahren funktioniert nur bei parametrisch koerziven Bilinearformen. Ist $a$ nur koerziv, aber nicht parametrisch koerziv, dann können wir mittels der sogenannten \emph{Succesive Constraint Method}, welche wir hier nur der Vollständigkeit halber erwähnen (genauer siehe \cite{Stamm} oder \cite{huynh2007successive}), durch etwas mehr Aufwand ebenfalls eine untere Schranke bestimmen. Dazu betrachtet man
 \begin{equation}
     \mathcal Y = \left\{ (y_1, ..., y_{Q_a}) \in \mathbb{R}^{Q_a} \mid \exists w_y \in X \text{ s.d. } y_k = \frac{a^k(w_y, w_y)}{\norm{w_y}^2_X}, 1 \leq k \leq Q_a \right\}
 \end{equation}
@@ -55,11 +55,10 @@ und eine Abbildung
     \mathcal I \colon \mathcal D \times \mathbb{R}^{Q_a} \to \mathbb{R}, \quad \mathcal I(\mu, y) = \sum_{k=1}^{Q_a} \Theta^k_a(\mu) y_k,
 \end{equation}
  denn es gilt $\alpha(\mu) = \min_{y \in \mathcal Y} \mathcal I(\mu, y)$.
-Mit einer Kombination aus Greedy-Verfahren und linearer Programmierung lassen sich dann Mengen $\mathcal Y_\text{UB} \subset \mathcal Y \subset \mathcal Y_\text{LB}$ und durch $\alpha_\text{LB}(\mu) = \min_{y \in \mathcal Y_\text{LB}} \mathcal I(\mu, y)$ die gesuchte Schranke finden.
 
-TODO!
+Mit einer Kombination aus Greedy-Verfahren und linearer Programmierung lassen sich dann Mengen $\mathcal Y_\text{UB} \subset \mathcal Y \subset \mathcal Y_\text{LB}$ bestimmen und durch $\alpha_\text{LB}(\mu) = \min_{y \in \mathcal Y_\text{LB}} \mathcal I(\mu, y)$ die gesuchte Schranke finden.
 
-Diese Succesive Constraint Method lässt sich nach einigen Abänderungen auch auf Variationsprobleme anwenden, welche die inf-sup-Bedingung erfüllen.
+Dieses Verfahren lässt sich nach einigen Abänderungen auch auf Variationsprobleme anwenden, welche die inf-sup-Bedingung erfüllen.
 
 % subsection untere_schranke_f_r_die_koerzivit_tskonstante (end)
 
@@ -120,8 +119,6 @@ und analog
     \quad \skprod{\hat a^k_n}{\hat a^j_m}_X = (\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline a^j_m.
 \end{equation}
 Damit lässt dich die Residuumsnorm nun berechnen. Zugleich erhalten wir dadurch auch eine Online-/Offline-Zerlegung. In der Offline-Phase berechnen wir $(\underline f^k)\Transp \, \mathbb{X}^{-1} \, \underline f^j$, $(\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline f^j$ und $(\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline a^j_m$. In der Online-Phase kann dann \eqref{eq:residumnorm} durch einige simple Additionen und Multiplikationen ausgewertet werden.
-
-% ToDo: Matrix-Schreibweise auch noch machen?
 
 % subsection online_offline_zerlegung_von_norm (end)
 

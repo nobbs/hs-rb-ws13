@@ -3,20 +3,16 @@
 \section{Einleitung} % (fold)
 \label{sec:einleitung}
 
-TODO: Quellen \cite{Paro}, \cite{Stamm}.
-
-Für die Reduzierte-Basis-Methode sind A-posteriori-Fehlerschätzer für das Ausgabefunktional $s(\mu)$ beziehungsweise für die Lösung $u(\mu)$, sowohl während der Offline- als auch während der Online-Phase, von großer Bedeutung.
+Für die Reduzierte-Basis-Methode sind A-posteriori-Fehlerschätzer für das Ausgabefunktional $s$ beziehungsweise für die Lösung $u(\mu)$, sowohl während der Offline- als auch während der Online-Phase, von großer Bedeutung.
 Daraus ergeben sich einige Anforderungen an die Fehlerschätzer; diese sollten \emph{effizient}, \emph{zuverlässig} und \emph{präzise} sein.
 
 Da der gegebene Parameterbereich $\mathcal D \subset \mathbb{R}^n$ im Allgemeinen keine diskrete Menge ist, können wir diesen mittels des vorgestellten Greedy-Algorithmus nicht vollständig ausschöpfen.
 Stattdessen müssen wir uns mit diskreten Teilmengen $\Xi \subset \mathcal D$ zufrieden geben.
-Berechnen wir nun für jedes $\mu \in \Xi$ die Finite-Elemente-Lösung um so den Fehler zu bestimmen, dann wird dies sehr aufwändig und impraktikabel.
-Verwenden wir statt der exakten Fehlerbestimmung einen \emph{effizienten}, das heißt einfach und schnell berechenbaren, Fehlerschätzer, so können wir $\Xi$ deutlich umfangreicher wählen, und damit ein besseres Bild des Fehlerverhaltens über $\mathcal D$ erhalten.
-Insbesondere sollte die Berechnung des Fehlerschätzers unabhängig von der Dimension $\mathcal N$ des zugrundeliegenden Finite-Elemente-Ansatzraumes $X$ sein.
+Die Verwendung eines \emph{effizienten}, das heißt einfach und schnell berechenbaren, Fehlerschätzers, erlaubt es uns $\Xi$ umfangreicher zu wählen, und damit ein besseres Bild des Fehlerverhaltens über $\mathcal D$ zu erhalten.
+Insbesondere sollte die Berechnung des Fehlerschätzers unabhängig von der Dimension $\mathcal N$ des zugrundeliegenden Galerkin-Ansatzraumes $X$ sein.
 
-Auch in der Online-Phase kommt der Fehlerschätzer zum Einsatz.
-Die meisten $\mu \in \mathcal D$ werden in der Offline-Phase nicht abgedeckt; der Fehlerschätzer sollte also \emph{zuverlässig} sein, das heißt, auch für diese $\mu$ sinnvolle Fehlerschranken liefern.
-Insbesondere darf der Fehlerschätzer den tatsächlichen Fehler nicht unterschätzen.
+Auch in der Online-Phase kommt der Fehlerschätzer zur Verifikation des Fehlers zum Einsatz.
+Der Fehlerschätzer sollte deswegen \emph{zuverlässig} sein, das heißt, er darf den tatsächlichen Fehler nicht unterschätzen.
 Gleichzeitig wollen wir aber auch, dass der Fehlerschätzer \emph{präzise}, also möglichst nahe am tatsächlichen Fehler, ist.
 
 % section einleitung (end)
