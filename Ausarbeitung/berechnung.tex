@@ -46,7 +46,7 @@ Setzen wir nun
 \end{equation}
 dann haben wir damit die für unseren Fehlerschätzer notwendige untere Schranke für die Koerzivitätskonstante $\alpha(\mu)$.
 
-Dieses einfache Verfahren funktioniert nur bei parametrisch koerziven Bilinearformen. Ist $a$ nur koerziv, aber nicht parametrisch koerziv, dann können wir mittels der sogenannten \emph{Succesive Constraint Method}, welche wir hier nur der Vollständigkeit halber erwähnen (genauer siehe \cite{Stamm} oder \cite{huynh2007successive}), durch etwas mehr Aufwand ebenfalls eine untere Schranke bestimmen. Dazu betrachtet man
+Dieses einfache Verfahren funktioniert nur bei parametrisch koerziven Bilinearformen. Ist $a$ nur koerziv, aber nicht parametrisch koerziv, dann können wir mittels der sogenannten \emph{Succesive Constraint Method}, welche wir hier nur der Vollständigkeit halber anschneiden (ausführlicher in \cite{Stamm} und \cite{huynh2007successive}), durch etwas mehr Aufwand ebenfalls eine untere Schranke bestimmen. Dazu betrachtet man
 \begin{equation}
     \mathcal Y = \left\{ (y_1, ..., y_{Q_a}) \in \mathbb{R}^{Q_a} \mid \exists w_y \in X \text{ s.d. } y_k = \frac{a^k(w_y, w_y)}{\norm{w_y}^2_X}, 1 \leq k \leq Q_a \right\}
 \end{equation}
@@ -93,8 +93,8 @@ woraus wir folgende Gleichungssysteme erhalten
     \label{eq:Xf_eq_f_and_Xa_eq_a}
     \mathbb{X} \underline{\hat{f}}^k = [f^k(\phi_i)]_{i=1}^{\mathcal N} =: \underline f^k, \quad \mathbb{X} \underline{\hat{a}}^k_n = [a^k(\zeta_n, \phi_i)]_{i=1}^{\mathcal N} =: \underline a^k_n,
 \end{equation}
-wobei $\underline{\hat{f}}^k$ und $\underline{\hat{a}}^k_n$ die Koeffizientenvektoren der Entwicklung in der Basis von $X$ der entsprechenden Abbildungen sind.
-Mit Hilfe der Linearität des $X$-Skalarprodukts können wir $\hat e(\mu)$ schreiben als
+wobei $\underline{\hat{f}}^k$ und $\underline{\hat{a}}^k_n$ die Koeffizientenvektoren der entsprechenden Abbildungen als Entwicklung in der Basis von $X$ sind.
+Aus der Bilinearität des $X$-Skalarprodukts erhalten wir, dass wir $\hat e(\mu)$ schreiben können als
 \begin{equation}
     \hat e(\mu) = \sum_{k=1}^{Q_f} \Theta_f^k(\mu) \hat f^k - \sum_{k=1}^{Q_a} \sum_{n=1}^{N} \Theta_a^k(\mu) u_N^{(n)}(\mu) \hat a^k_n,
 \end{equation}
@@ -111,15 +111,19 @@ eingesetzt in \eqref{eq:skprod_e_v} ergibt dies
 \end{align}
 Da $a$ symmetrisch und koerziv ist, insbesondere also positiv definit, ist $\mathbb{X}$ invertierbar und wir erhalten durch Verwendung von \eqref{eq:Xf_eq_f_and_Xa_eq_a}
 \begin{equation}
+    \label{eq:skprod_f_f}
     \skprod{\hat f^k}{\hat f^j}_X = (\hat f^k)\Transp \, \mathbb{X} \, \hat f^j = (\underline f^k)\Transp \, \mathbb{X}^{-1} \, \underline f^j
 \end{equation}
 und analog
 \begin{equation}
+    \label{eq:skprod_f_a_und_a_a}
     \skprod{\hat a^k_n}{\hat f^j}_X = (\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline f^j,
     \quad \skprod{\hat a^k_n}{\hat a^j_m}_X = (\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline a^j_m.
 \end{equation}
-Damit lässt dich die Residuumsnorm nun berechnen. Zugleich erhalten wir dadurch auch eine Online-/Offline-Zerlegung. In der Offline-Phase berechnen wir $(\underline f^k)\Transp \, \mathbb{X}^{-1} \, \underline f^j$, $(\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline f^j$ und $(\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline a^j_m$. In der Online-Phase kann dann \eqref{eq:residumnorm} durch einige simple Additionen und Multiplikationen ausgewertet werden.
 
+Damit haben wir nun alles zusammen, um die Residuumsnorm zu berechnen. Zugleich erhalten wir dadurch auch eine Online-/Offline-Zerlegung. In der Offline-Phase berechnen wir $(\underline f^k)\Transp \, \mathbb{X}^{-1} \, \underline f^j$, $(\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline f^j$ und $(\underline a^k_n)\Transp \, \mathbb{X}^{-1} \, \underline a^j_m$. In der Online-Phase kann dann \eqref{eq:residumnorm} durch einige simple Additionen und Multiplikationen ausgewertet werden.
+
+Zur tatsächlichen Implementierung sollten die obigen Darstellungen \eqref{eq:skprod_f_f} und \eqref{eq:skprod_f_a_und_a_a} natürlich nicht Eins-zu-eins umgesetzt werden, sondern durch effizientere Verfahren berechnet werden.
 % subsection online_offline_zerlegung_von_norm (end)
 
 % section berechnung_des_fehlersch_tzers (end)

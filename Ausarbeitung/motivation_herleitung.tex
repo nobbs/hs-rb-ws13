@@ -5,6 +5,28 @@
 
 % Zunächst wiederholen wir einige Begriffe und Notationen aus den vorherigen Vorträgen.
 
+\subsection{Benötigte Grundlagen aus der Funktionalanalysis} % (fold)
+\label{sub:ben_tigte_grundlagen_aus_der_funktionalanalysis}
+
+Für die Herleitung des Fehlerschätzers ist eine Aussage aus der Funktionalanalysis von sehr großer Bedeutung, weswegen wir mit ihr beginnen.
+
+\begin{Definition}[Hilbertraum]
+    \label{def:hilbertraum}
+    Wir nennen einen reellen Vektorraum $H$ mit einem Skalarprodukt $\skprod{\cdot}{\cdot}$, der bezüglich der durch das Skalarprodukt induzierten Norm $\norm{\cdot}_H = \sqrt{\skprod{\cdot}{\cdot}}$ vollständig ist, einen Hilbertraum.
+\end{Definition}
+
+\begin{Satz}[Rieszscher Darstellungssatz]
+    \label{satz:rieszscher_darstellungssatz}
+    Sei $(H, \skprod{\cdot}{\cdot})$ ein Hilbertraum. Dann existiert zu jedem stetigen linearen Funktional $f \colon H \to \bbR$ genau ein $y \in H$, sodass gilt
+    \begin{equation}
+        f(x) = \skprod{x}{y} \quad \fa x \in H,
+    \end{equation}
+    und
+    \begin{equation}
+         \norm{f}_{H'} := \sup_{x \in H} \frac{\abs{f(x)}}{\norm{x}_H} = \norm{y}_H.
+    \end{equation}
+\end{Satz}
+
 \subsection{Wiederholung} % (fold)
 \label{sub:wiederholung}
 
