@@ -8,11 +8,11 @@
 \subsection{Benötigte Grundlagen aus der Funktionalanalysis} % (fold)
 \label{sub:ben_tigte_grundlagen_aus_der_funktionalanalysis}
 
-Für die Herleitung des Fehlerschätzers ist eine Aussage aus der Funktionalanalysis von sehr großer Bedeutung, weswegen wir mit ihr beginnen.
+Für die Herleitung des Fehlerschätzers ist eine Aussage aus der Funktionalanalysis von großer Bedeutung, weswegen wir mit ihr beginnen.
 
 \begin{Definition}[Hilbertraum]
     \label{def:hilbertraum}
-    Wir nennen einen reellen Vektorraum $H$ mit einem Skalarprodukt $\skprod{\cdot}{\cdot}$, der bezüglich der durch das Skalarprodukt induzierten Norm $\norm{\cdot}_H = \sqrt{\skprod{\cdot}{\cdot}}$ vollständig ist, einen Hilbertraum.
+    Ein reeller Vektorraum $H$ mit einem Skalarprodukt $\skprod{\cdot}{\cdot}$, der bezüglich der durch das Skalarprodukt induzierten Norm $\norm{\cdot}_H = \sqrt{\skprod{\cdot}{\cdot}}$ vollständig ist, heißt Hilbertraum.
 \end{Definition}
 
 \begin{Satz}[Rieszscher Darstellungssatz]
@@ -34,7 +34,7 @@ Es sei eine Teilmenge $\Omega \subset \mathbb{R}^d$ und ein Hilbertraum $X^e$ vo
 Oftmals betrachten wir $d \in \left\{ 1, 2, 3 \right\}$ und $H^1_0(\Omega) \subset X^e \subset H^1(\Omega)$.
 Der sogenannte Parameterraum $\mathcal D \subset \mathbb{R}^n$ sei eine kompakte Menge.
 
-Wir betrachten folgendes parametrisches Variationsproblem:
+Betrachte folgendes parametrisch eVariationsproblem:
 \begin{addmargin}[2em]{2em}
     Sei $\mu \in \mathcal D$ gegegeben. Gesucht ist eine Lösung $u^e(\mu) \in X^e$, sodass
     \begin{equation}
@@ -102,6 +102,7 @@ Wir wählen aus dem Parameterraum $\mathcal D$ einen Referenzparameter $\bar \mu
 Die Wahl dieses $\bar \mu \in \mathcal D$ hat zwar keine Auswirkungen auf die Ergebnisse der Reduzierte-Basis-Methode, wohl aber auf Präzision der hier behandelten A-posteriori-Fehlerschätzer.
 
 Mit $X \subset X^e$, wobei $\dim X = \mathcal N \in \mathbb{N}$, bezeichnen wir den endlichdimensionalen Galerkin-Ansatzraum und die dazugehörige Lösung mit $u(\mu) \in X$.
+Das Vorwort \emph{Galerkin-} wird hier gewählt, da in der Praxis hierfür oft die Finite-Elemente-Methode verwendet wird, dies aber nicht immer der Fall sein muss.
 Als endlichdimensionaler Unterraum des Hilbertraums $X^e$ ist $X$ abgeschlossen und damit selbst ein Hilbertraum.
 Insbesondere vererben sich die obigen Skalarprodukte und Normen alle von $X^e$ auf $X$.
 
@@ -111,7 +112,7 @@ Auch $X_N$ ist ein Hilbertraum.
 \subsection{Herleitung} % (fold)
 \label{sub:herleitung}
 
-Für diesen Abschnitt sei $a$ eine koerzive, parametrisch affine, symmetrische, stetige Bilinearform und $f$ ein parametrisch affines, stetiges, lineares Funktional.
+Für diesen Abschnitt sei $a$ eine koerzive, parametrisch affine, symmetrische und stetige Bilinearform und $f$ ein parametrisch affines, stetiges, lineares Funktional.
 
 Wir beschränken uns nun auf die Herleitung eines Fehlerschätzers für den Fehler zwischen der Lösung $u(\mu)$ der Galerkin-Methode und der Lösung $u_N(\mu)$ der Reduzierte-Basis-Methode. Wegen der Dreiecksungleichung gilt
 \begin{equation}
