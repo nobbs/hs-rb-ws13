@@ -57,7 +57,7 @@ function [Delta_s_N_max, eta_s_N_ave, eta_s_N_max, rho_S_err_N] = test_errors(Ak
 		[err_s, err_mu, err_X, alpha_LB] = estimate_errors(U_rb, Theta, G);
 
 		% Finite-Elemente-Lösung bestimmen
-		A_fe = assemble_fe_A(Ak, [mu, 1]);
+		A_fe = assemble_fe_A(Ak, [mu; 1]);
 		U_fe = A_fe \ f;
 
 		% Output-Funktionale für RB und FE auswerten

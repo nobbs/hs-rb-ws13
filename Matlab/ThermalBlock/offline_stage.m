@@ -23,7 +23,7 @@ mu_ss = mu_bar;
 % snapshots_idx(1) = idx_ss;
 
 % Gram-Schmidt-Verfahren für bessere Kondition
-snapshots(:, 1) = assemble_fe_A(Ak, [mu_ss, 1]) \ f;
+snapshots(:, 1) = assemble_fe_A(Ak, [mu_ss; 1]) \ f;
 Z(:, 1)         = snapshots(:, 1) / sqrt(snapshots(:, 1)' * X * snapshots(:, 1));
 
 disp(['<< N = ', mat2str(N), ', mu = ', mat2str(mu_ss)])
@@ -121,7 +121,7 @@ for i = 2:N_max
     fprintf(['\nSnapshot gewählt mit mu = ', mat2str(mu_ss)])
 
     % FE-Lösung zu neu gewähltem mu bestimmen und Gram-Schmidt darauf anwenden
-    A_ss = assemble_fe_A(Ak, [mu_ss, 1]);
+    A_ss = assemble_fe_A(Ak, [mu_ss; 1]);
     snapshots(:, i)        = sparse(A_ss \ f);
     snapshots_idx(end + 1) = idx_ss;
 

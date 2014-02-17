@@ -20,7 +20,7 @@ mu_bar = ones(P, 1);
 assemble_sol = @(u) B * u + Ud;
 
 % Matrix der diskreten X-Norm
-X = assemble_fe_A(Ak, [mu_bar, 1]);
+X = assemble_fe_A(Ak, [mu_bar; 1]);
 
 %% Offline-Stage Daten
 % Maximale RB-Größe
