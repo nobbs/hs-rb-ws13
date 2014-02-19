@@ -48,7 +48,7 @@ dann haben wir damit die für unseren Fehlerschätzer notwendige untere Schranke
 
 Dieses einfache Verfahren funktioniert nur bei parametrisch koerziven Bilinearformen. Ist $a$ nur koerziv, aber nicht parametrisch koerziv, dann können wir mittels der sogenannten \emph{Succesive Constraint Method}, welche wir hier nur der Vollständigkeit halber anschneiden (ausführlicher in \cite{Stamm} und \cite{huynh2007successive}), durch etwas mehr Aufwand ebenfalls eine untere Schranke bestimmen. Dazu betrachtet man
 \begin{equation}
-    \mathcal Y = \left\{ (y_1, ..., y_{Q_a}) \in \mathbb{R}^{Q_a} \mid \exists w_y \in X \text{ s.d. } y_k = \frac{a^k(w_y, w_y)}{\norm{w_y}^2_X}, 1 \leq k \leq Q_a \right\}
+    \mathcal Y = \left\{ (y_1, ..., y_{Q_a}) \in \mathbb{R}^{Q_a} \mid \exists w_y \in X \text{ mit } y_k = \frac{a^k(w_y, w_y)}{\norm{w_y}^2_X}, 1 \leq k \leq Q_a \right\}
 \end{equation}
 und eine Abbildung
 \begin{equation}
@@ -58,7 +58,7 @@ und eine Abbildung
 
 Mit einer Kombination aus Greedy-Verfahren und linearer Programmierung lassen sich dann Mengen $\mathcal Y_\text{UB} \subset \mathcal Y \subset \mathcal Y_\text{LB}$ bestimmen und durch $\alpha_\text{LB}(\mu) = \min_{y \in \mathcal Y_\text{LB}} \mathcal I(\mu, y)$ die gesuchte Schranke finden.
 
-Dieses Verfahren lässt sich nach einigen Abänderungen auch auf Variationsprobleme anwenden, welche die inf-sup-Bedingung erfüllen.
+Dieses Verfahren lässt sich mit einigen Veränderungen auch auf Variationsprobleme anwenden, welche lediglich die inf-sup-Bedingung erfüllen.
 
 % subsection untere_schranke_f_r_die_koerzivit_tskonstante (end)
 
@@ -66,7 +66,7 @@ Dieses Verfahren lässt sich nach einigen Abänderungen auch auf Variationsprobl
 \label{sub:online_offline_zerlegung_von_norm}
 
 Wir wollen nun die Norm des Residuums bestimmen.
-Dazu benötigen wir parametrische Koerzivität von $a$ nicht.
+Dazu benötigen wir die parametrische Koerzivität von $a$ nicht.
 Es genügt, wenn $a$ symmetrisch, parametrisch affin und koerziv ist.
 
 Wir schreiben die Basis von $X$ als $\left\{ \phi_i \mid i = 1 \ldots \mathcal N \right\}$ und die Basis von $X_N$ als $\left\{ \zeta_i \mid i = 1 \ldots N \right\}$.
@@ -79,7 +79,7 @@ Außerdem können wir die Reduzierte-Basis-Lösung $u_N(\mu)$ in der Basis von $
     u_N(\mu) = \sum_{n=1}^{N} u_N^{(n)}(\mu) \zeta_n.
 \end{equation}
 
-Die parametrische Affinität von $a$ und $f$ liefert uns für beliebiges $v \in X$ die Darstellung
+Die parametrische Affinität von $a$ und $f$ liefert uns für beliebiges $v \in X$ folgende Darstellung für das Residuum
 \begin{equation}
     \label{eq:skprod_e_v}
     \skprod{\hat e(\mu)}{v} = r(v; \mu) = \sum_{k=1}^{Q_f} \Theta_f^k(\mu) f^k(v) - \sum_{k=1}^{Q_a} \sum_{n=1}^{N} \Theta_a^k(\mu) u_N^{(n)}(\mu)a^k(\zeta_n, v).
@@ -94,11 +94,11 @@ woraus wir folgende Gleichungssysteme erhalten
     \mathbb{X} \underline{\hat{f}}^k = [f^k(\phi_i)]_{i=1}^{\mathcal N} =: \underline f^k, \quad \mathbb{X} \underline{\hat{a}}^k_n = [a^k(\zeta_n, \phi_i)]_{i=1}^{\mathcal N} =: \underline a^k_n,
 \end{equation}
 wobei $\underline{\hat{f}}^k$ und $\underline{\hat{a}}^k_n$ die Koeffizientenvektoren der entsprechenden Abbildungen als Entwicklung in der Basis von $X$ sind.
-Aus der Bilinearität des $X$-Skalarprodukts erhalten wir, dass wir $\hat e(\mu)$ schreiben können als
+Mit der Bilinearität des $X$-Skalarprodukts erhalten wir aus Gleichung \eqref{eq:skprod_e_v}, dass wir $\hat e(\mu)$ schreiben können als
 \begin{equation}
-    \hat e(\mu) = \sum_{k=1}^{Q_f} \Theta_f^k(\mu) \hat f^k - \sum_{k=1}^{Q_a} \sum_{n=1}^{N} \Theta_a^k(\mu) u_N^{(n)}(\mu) \hat a^k_n,
+    \hat e(\mu) = \sum_{k=1}^{Q_f} \Theta_f^k(\mu) \hat f^k - \sum_{k=1}^{Q_a} \sum_{n=1}^{N} \Theta_a^k(\mu) u_N^{(n)}(\mu) \hat a^k_n.
 \end{equation}
-eingesetzt in \eqref{eq:skprod_e_v} ergibt dies
+Die $X$-Norm davon berechnet sich nun als
 \begin{align}
     \label{eq:residumnorm}
     \norm{\hat e(\mu)}^2_X
@@ -109,10 +109,10 @@ eingesetzt in \eqref{eq:skprod_e_v} ergibt dies
     + &\sum_{k, j = 1}^{Q_a} \sum_{n, m = 1}^N \Theta_a^k(\mu) \Theta_a^j(\mu) u_N^{(n)}(\mu)u_N^{(m)}(\mu) \skprod{\hat a_n^k}{\hat a_m^j}_X.
     \end{aligned}
 \end{align}
-Da $a$ symmetrisch und koerziv ist, insbesondere also positiv definit, ist $\mathbb{X}$ invertierbar und wir erhalten durch Verwendung von \eqref{eq:Xf_eq_f_and_Xa_eq_a}
+Da $a$ symmetrisch und koerziv ist, insbesondere also positiv definit, ist $\mathbb{X}$ symmetrisch und invertierbar und wir erhalten durch Verwendung von \eqref{eq:Xf_eq_f_and_Xa_eq_a}
 \begin{equation}
     \label{eq:skprod_f_f}
-    \skprod{\hat f^k}{\hat f^j}_X = (\hat f^k)\Transp \, \mathbb{X} \, \hat f^j = (\underline f^k)\Transp \, \mathbb{X}^{-1} \, \underline f^j
+    \skprod{\hat f^k}{\hat f^j}_X = (\underline{\hat{f}}^k)\Transp \, \mathbb{X} \, \underline{\hat{f}}^j = (\underline f^k)\Transp \, \mathbb{X}^{-1} \, \underline f^j
 \end{equation}
 und analog
 \begin{equation}
