@@ -3,8 +3,6 @@
 \section{Herleitung eines A-posteriori-Fehlerschätzers} % (fold)
 \label{sec:herleitung}
 
-% Zunächst wiederholen wir einige Begriffe und Notationen aus den vorherigen Vorträgen.
-
 \subsection{Benötigte Grundlagen aus der Funktionalanalysis} % (fold)
 \label{sub:ben_tigte_grundlagen_aus_der_funktionalanalysis}
 
@@ -12,7 +10,8 @@ Für die Herleitung des Fehlerschätzers ist eine Aussage aus der Funktionalanal
 
 \begin{Definition}[Hilbertraum]
     \label{def:hilbertraum}
-    Ein reeller Vektorraum $H$ mit einem Skalarprodukt $\skprod{\cdot}{\cdot}$, der bezüglich der durch das Skalarprodukt induzierten Norm $\norm{\cdot}_H = \sqrt{\skprod{\cdot}{\cdot}}$ vollständig ist, heißt Hilbertraum.
+    Sei ein reeller Vektorraum $H$ mit einem Skalarprodukt $\skprod{\cdot}{\cdot}$ gegeben.
+    Ist $H$ bezüglich der durch das Skalarprodukt induzierten Norm $\norm{\cdot}_H = \sqrt{\skprod{\cdot}{\cdot}}$ vollständig, dann heißt $H$ Hilbertraum.
 \end{Definition}
 
 \begin{Satz}[Rieszscher Darstellungssatz]
@@ -23,7 +22,7 @@ Für die Herleitung des Fehlerschätzers ist eine Aussage aus der Funktionalanal
     \end{equation}
     und
     \begin{equation}
-         \norm{f}_{H'} := \sup_{x \in H} \frac{\abs{f(x)}}{\norm{x}_H} = \norm{y}_H.
+         \norm{f}_{H'} := \sup_{x \in H \setminus \left\{ 0 \right\}} \frac{\abs{f(x)}}{\norm{x}_H} = \norm{y}_H.
     \end{equation}
 \end{Satz}
 
@@ -34,9 +33,9 @@ Es sei eine Teilmenge $\Omega \subset \mathbb{R}^d$ und ein Hilbertraum $X^e$ vo
 Oftmals betrachten wir $d \in \left\{ 1, 2, 3 \right\}$ und $H^1_0(\Omega) \subset X^e \subset H^1(\Omega)$.
 Der sogenannte Parameterraum $\mathcal D \subset \mathbb{R}^n$ sei eine kompakte Menge.
 
-Wir betrachten folgendes parametrisch eVariationsproblem:
+Wir betrachten das folgende parametrische Variationsproblem:
 \begin{addmargin}[2em]{2em}
-    Sei $\mu \in \mathcal D$ gegegeben. Gesucht ist eine Lösung $u^e(\mu) \in X^e$, sodass
+    Sei $\mu \in \mathcal D$ gegeben. Gesucht ist eine Lösung $u^e(\mu) \in X^e$, sodass
     \begin{equation}
         a(u^e(\mu), v; \mu) = f(v; \mu) \quad \fa v \in X^e
     \end{equation}
@@ -62,18 +61,16 @@ und stetige lineare Funktionale
 \end{equation}
 sodass
 \begin{align*}
-    a(w, v; \mu) &= \sum_{k=1}^{Q_a} \Theta_a^k(\mu) a^k(w, v), \\
-    f(v; \mu)    &= \sum_{j=1}^{Q_f} \Theta_f^j(\mu) f^j(v)
+    a(w, v; \mu) = \sum_{k=1}^{Q_a} \Theta_a^k(\mu) a^k(w, v)
+    \qquad \text{und} \qquad
+    f(v; \mu)    = \sum_{j=1}^{Q_f} \Theta_f^j(\mu) f^j(v)
 \end{align*}
 für alle $w, v \in X^e$ und alle $\mu \in \mathcal D$ gilt.
 
-
-Wir haben bereits gesehen, dass das obige parametrische Variationsproblem unter bestimmten Voraussetzungen, zum Beispiel, wenn $a$ koerziv ist oder die inf-sup-Bedingung erfüllt, wohldefiniert ist.
+Wir haben bereits gesehen, dass das obige parametrische Variationsproblem unter bestimmten Voraussetzungen wohldefiniert ist, zum Beispiel, wenn $a$ koerziv ist oder die inf-sup-Bedingung erfüllt.
 Auch hier nehmen wir eine Einschränkung vor und betrachten hauptsächlich den Fall, dass $a$ koerziv ist.
 
 Die Schreibweise $\bullet^e$ verwenden wir, um zu kennzeichnen, dass es sich dabei um die \emph{exakte} Variante des Variationsproblems handelt.
-% Mit $X \subset X^e$ bezeichnen wir nun einen endlichdimensionalen Unterhilbertraum, den wir zum Beispiel durch die Galerkin-Methode erhalten.
-% Ebenso verwenden wir entsprechend die Schreibweise $u(\mu)$ für die Lösung beziehungsweise $s(\mu) = f(u(\mu); \mu)$ für das Output-Funktional für diesen Raum $X$.
 
 Handelt es sich, wie oben angenommen, bei $a$ um eine koerzive Bilinearform, dann ist $a$ insbesondere auch positiv definit.
 Ist $a$ zudem symmetrisch, dann definiert $a(\cdot, \cdot; \mu)$ für jedes $\mu \in \mathcal D$ ein Skalarprodukt auf $X^e$.
@@ -94,20 +91,22 @@ induzieren.
 Wir wählen aus dem Parameterraum $\mathcal D$ einen Referenzparameter $\bar \mu \in \mathcal D$ aus und bezeichnen das zugehörige Skalarprodukt als $X^e$-Skalarprodukt und analog die induzierte Norm als $X^e$-Norm
 \begin{equation}
     \skprod{w}{v}_{X^e} = a(w, v; \bar \mu),
-% \end{equation}
     \qquad
-% \begin{equation}
     \norm{w}_{X^e} = \sqrt{\skprod{w}{w}_{X^e}}.
 \end{equation}
-Die Wahl dieses $\bar \mu \in \mathcal D$ hat zwar keine Auswirkungen auf die Ergebnisse der Reduzierte-Basis-Methode, wohl aber auf Präzision der hier behandelten A-posteriori-Fehlerschätzer.
+Die Wahl dieses $\bar \mu \in \mathcal D$ hat zwar keine Auswirkungen auf die Ergebnisse der Reduzierte-Basis-Methode, wohl aber auf die Präzision der hier behandelten A-posteriori-Fehlerschätzer.
 
 Mit $X \subset X^e$, wobei $\dim X = \mathcal N \in \mathbb{N}$, bezeichnen wir den endlichdimensionalen Galerkin-Ansatzraum und die dazugehörige Lösung mit $u(\mu) \in X$.
 Das Vorwort \emph{Galerkin-} wird hier gewählt, da in der Praxis hierfür oft die Finite-Elemente-Methode verwendet wird, dies aber nicht immer der Fall sein muss.
+Wir schreiben $s(\mu) = f(u(\mu); \mu)$ für das Ausgabefunktional zu der Galerkin-Lösung für $\mu$.
+
 Als endlichdimensionaler Unterraum des Hilbertraums $X^e$ ist $X$ abgeschlossen und damit selbst ein Hilbertraum.
 Insbesondere vererben sich die obigen Skalarprodukte und Normen alle von $X^e$ auf $X$.
+Da auf endlichdimensionalen Vektorräumen alle Normen äquivalent sind, erhalten wir damit insbesondere, dass $X$ bezüglich jedem der obigen Skalarprodukte ein Hilbertraum ist.
 
 Analog bezeichnen wir mit $X_N \subset X$, $\dim X_N = N \ll \mathcal N$, den Reduzierte-Basis-Ansatzraum und mit $u_N(\mu) \in X_N$ die Reduzierte-Basis-Lösung des obigen Variationsproblems.
 Auch $X_N$ ist ein Hilbertraum.
+Das Ausgabefunktional für die Reduzierte-Basis-Lösung schreiben wir als $s_N(\mu) = f(u_N(\mu); \mu)$.
 
 \subsection{Herleitung} % (fold)
 \label{sub:herleitung}
@@ -126,7 +125,7 @@ Wir definieren die Differenz zwischen der Lösung $u(\mu)$ und der Reduzierte-Ba
     e \colon \mathcal D \to X, ~
     e(\mu) := u(\mu) - u_N(\mu).
 \end{equation}
-Einsetzen in das Variationsproblem und Ausnutzen der Bilinearität von $a$ liefert
+Einsetzen in die Bilinearform $a$ und Ausnutzen der Bilinearität von $a$ liefert
 \begin{align}
     a(e(\mu), v; \mu)
     &= a(u(\mu) - u_N(\mu), v; \mu)
@@ -169,21 +168,20 @@ Außerdem liefert der Rieszsche Darstellungssatz \ref{satz:rieszscher_darstellun
     \label{eq:residuum_norm_gl_hat_e_norm}
     \norm{r(\cdot; \mu)}_{X'} := \sup_{v \in X \setminus \left\{ 0 \right\}} \frac{\abs{r(v; \mu)}}{\norm{v}_X} = \norm{\hat e(\mu)}_X.
 \end{equation}
-% \fxnote{wieso?}
 Diese Darstellung der Norm des Residuums durch das Element $\hat e(\mu)$ ist essentiell für die spätere Berechnung des A-posteriori-Fehlerschätzers.
 
 Als weiteren Bestandteil benötigen wir für unseren Fehlerschätzer die Koerzivität von $a$.
-Es sei also
+Sei also
 \begin{equation}
             \alpha(\mu) = \inf_{w \in X} \frac{a(w, w; \mu)}{\norm{w}^2_X} > 0, \quad \mu \in \mathcal D,
 \end{equation}
-die Koerzivitätskonstante von $a$ über $X$.
-Mit $\alpha_{\text{LB}}(\mu) > 0$ bezeichnen wir eine untere Schranke für dieses $\alpha(\mu)$, es gelte also
+die Koerzivitätskonstante von $a(\cdot, \cdot; \mu)$ über $X$.
+Mit $\alpha_{\text{LB}}(\mu) > 0$ bezeichnen wir eine positive untere Schranke für dieses $\alpha(\mu)$, es gelte also
 \begin{equation}
     \label{eq:alpha_lb}
     0 < \alpha_{\text{LB}}(\mu) \leq \alpha(\mu) \quad \fa \mu \in \mathcal D.
 \end{equation}
-Wie man eine solche Schranke bestimmt, werden wir in Kapitel \ref{sec:berechnung_des_fehlersch_tzers} behandeln.
+In Kapitel \ref{sec:berechnung_des_fehlersch_tzers} werden wir behandeln, wie man eine solche Schranke bestimmt.
 Zunächst aber leiten wir unter Verwendung dieser Schranke den gesuchten A-posteriori-Fehlerschätzer her.
 
 \begin{Definition}
@@ -208,11 +206,11 @@ Zunächst aber leiten wir unter Verwendung dieser Schranke den gesuchten A-poste
 
 Wir beweisen zunächst einige Aussagen über die gewonnenen Fehlerschätzer, bevor wir uns um die Berechnung dieser kümmern.
 
-Dazu benötigen wir, wenn auch nur für die, für uns weniger interessante, obere Schranke der Fehlerschätzer, die Stetigkeitskonstante
+Dazu benötigen wir, wenn auch nur für die für uns weniger interessante obere Schranke der Fehlerschätzer, die Stetigkeitskonstante
 \begin{equation}
     \gamma(\mu) = \sup_{w \in X} \sup_{v \in X} \frac{a(w, v; \mu)}{\norm{w}_X \norm{v}_X} < \infty, \quad \mu \in \mathcal D,
 \end{equation}
-von $a$ über $X$.
+von $a(\cdot, \cdot; \mu)$ über $X$.
 
 \begin{Satz}
     Die Fehlerschätzer sind nach unten und nach oben durch den tatsächlichen Fehler beschränkt, denn es gilt
@@ -225,28 +223,6 @@ von $a$ über $X$.
          s(\mu) - s_N(\mu) \leq \Delta^s_N(\mu) \leq \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} \left( s(\mu) - s_N(\mu) \right)
     \end{equation}
     für alle $\mu \in \mathcal D$.
-
-    % \begin{equation}
-    %     \qquad
-    % \end{equation}
-    % und
-    % \begin{equation}
-    %     s(\mu) - s_N(\mu) \leq \Delta^s_N(\mu)
-    % \end{equation}
-    % für alle $\mu \in \mathcal D$.
-
-    % Die Fehlerschätzer erfüllen
-    %     \begin{equation}
-    %     \Delta^{\text{en}}_N(\mu) \leq \sqrt{\frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)}} \norm{u(\mu) - u_N(\mu)}_{\mu}
-    %     , \qquad
-    %      \Delta_N(\mu) \leq \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)}\norm{u(\mu) - u_N(\mu)}_X
-    % \end{equation}
-    % und
-    % \begin{equation}
-    %     \Delta^s_N(\mu) \leq \frac{\gamma(\mu)}{\alpha_{\text{LB}}(\mu)} \left( s(\mu) - s_N(\mu)  \right)
-    % \end{equation}
-    % für alle $\mu \in \mathcal D$.
-
 
     \begin{Beweis}
         Sei $\mu \in \mathcal D$ beliebig.
@@ -335,7 +311,7 @@ von $a$ über $X$.
         \begin{equation}
             \Delta^s_N(\mu) = \left( \Delta^{\text{en}}_N(\mu) \right)^2,
         \end{equation}
-        folgen die Abschätzungen von $\Delta^s_N$ aus dem Beweis für die $\Delta^\text{en}_N$.
+        folgen die Abschätzungen von $\Delta^s_N$ aus dem Beweis für $\Delta^\text{en}_N$.
     \end{Beweis}
 \end{Satz}
 
@@ -358,6 +334,6 @@ Als nächstes führen wir den Begriff der Effektivität der Fehlerschätzer ein 
     \end{align}
     für alle $\mu \in \mathcal D$.
 \end{Korollar}
-Man sieht leicht ein, dass es für unsere Anwendungszwecke wünschenswert ist, wenn die Effektivitäten nahe der Eins liegen; unsere Fehlerschätzer die tatsächlichen Fehler also nur minimal überschätzen.
+Man sieht leicht ein, dass es für unsere Anwendungszwecke wünschenswert ist, wenn die Effektivitäten nahe der Eins liegen, unsere Fehlerschätzer die tatsächlichen Fehler also nur minimal überschätzen.
 
 % section herleitung (end)
