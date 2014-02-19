@@ -40,7 +40,7 @@ Ein weiteres Maß für die Güte der Fehlerschätzer liefert der Quotient des ma
 
 Wir betrachten nun das Thermal-Block-Beispiel (siehe \cite[2.2.1]{Paro}), allerdings nur für einen eindimensionalen Parameter.
 
-Es sei $\Omega = [ 0, 1 ]^2 \subset \mathbb{R}^2$. Wir teilen das Gebiet in zwei Rechtecke $\Omega_1 = [0, \frac{1}{2}] \times [ 0, 1 ] $ und $\Omega_2 = [ \frac{1}{2}, 1 ] \times [ 0, 1 ]$ auf und unterteilen den Rand von $\Omega$ in $\Gamma_1 = [0, 1] \times \{ 0 \}$, $\Gamma_2 = \{ 1 \} \times [0, 1]$, $\Gamma_1 = [0, 1] \times \{ 1 \}$ und $\Gamma_4 = \{ 0 \} \times [0, 1]$.
+Es sei $\Omega = [ 0, 1 ]^2 \subset \mathbb{R}^2$. Wir teilen den Definitionsbereich in zwei Rechtecke $\Omega_1 = [0, \frac{1}{2}] \times [ 0, 1 ] $ und $\Omega_2 = [ \frac{1}{2}, 1 ] \times [ 0, 1 ]$ auf und unterteilen den Rand von $\Omega$ in $\Gamma_1 = [0, 1] \times \{ 0 \}$, $\Gamma_2 = \{ 1 \} \times [0, 1]$, $\Gamma_1 = [0, 1] \times \{ 1 \}$ und $\Gamma_4 = \{ 0 \} \times [0, 1]$.
 
 Sei der Parameterbereich gegeben durch $\mathcal D = [0.1, 10]$. Als Referenzparameter wählen wir $\bar \mu = 1$.
 
@@ -60,7 +60,7 @@ Das zugehörige Variatonsproblem lautet nun:
 \begin{addmargin}[2em]{2em}
 Sei $\mu \in \mathcal D$. Gesucht ist ein $u(\mu) \in X := \{ v \in H^1(\Omega) \mid \restr{v}{\Gamma_3} = 0 \}$, sodass gilt
 \begin{equation}
-    \mu \int_{\Omega_1} \nabla u(\mu) \nabla v \, \mathrm d x + \int_{\Omega_2} \nabla u(\mu) \nabla v \, \mathrm d x = \int_{\Gamma_1} v \, \mathrm{d} x, \quad \fa v \in H^1(\Omega),
+    \mu \int_{\Omega_1} \nabla u(\mu) \nabla v \, \mathrm d x + \int_{\Omega_2} \nabla u(\mu) \nabla v \, \mathrm d x = \int_{\Gamma_1} v \, \mathrm{d} x \quad \fa v \in X.
 \end{equation}
 Wir interessieren uns nun für
 \begin{equation}
@@ -109,7 +109,7 @@ Zudem sieht man in Abbildung \ref{fig:plot_s_fehler}, wie sich der tatsächliche
 
 \begin{table}[h!]
     \begin{center}
-    % \small
+    \small
         \begin{tabular}{r|llll}
         $N$ & $\Delta^s_{N,\max}$ & $\eta^s_{N,\text{ave}}$ & $\eta^s_{N,\max}$ & $\rho^s_{\text{err}, N}$ \\
         \hline
@@ -165,9 +165,22 @@ Als obere Schranke für die maximale Effektivität erhält man in diesem Fall $\
 Um ein besseres Bild des Fehlers über $\mathcal D$ zu erhalten, vergrößeren wir unsere diskreten Teilmengen $\Xi_\text{train} = \Xi_\text{test} \subset \mathcal D$ auf $10^5$ Elemente, welche wieder zufällig logarithmisch gleichverteilt gewählt werden.
 Tabelle \ref{tab:dreidim} und Abbildung \ref{fig:3par_plot_fehler_nach_N} zeigen die Entwicklung des Fehlers für dieses Beispiel. Wie man sieht, benötigen wir für diesen dreidimensionalen Parameterraum bereits ein deutlich größeres $N$ um die Fehlertoleranz von $10^{-8}$ zu erreichen, aber nach wie vor ist $N \ll \mathcal N$.
 
+\begin{figure}[h!]
+    \begin{center}
+        \small
+        % \newlength\figureheight
+        % \newlength\figurewidth
+        \setlength\figureheight{5cm}
+        \setlength\figurewidth{0.6\textwidth}
+        \input{Plots/3dplot.tikz}
+    \end{center}
+    \caption{Entwicklung von $\Delta{}^\text{s}_{\text{N,max}}$ in Abhängigkeit von $N$ beim dreidimensionalen Parameterraum. Bei $N = 27$ wird die geforderte Fehlertoleranz von $10^{-8}$ erstmals erreicht.}
+    \label{fig:3par_plot_fehler_nach_N}
+\end{figure}
+
 \begin{table}[h!]
     \begin{center}
-        % \small
+        \small
         \begin{tabular}{r|llll}
         $N$ & $\Delta^s_{N,\max}$ & $\eta^s_{N,\text{ave}}$ & $\eta^s_{N,\max}$ & $\rho^s_{\text{err}, N}$ \\
         \hline
@@ -203,19 +216,6 @@ Tabelle \ref{tab:dreidim} und Abbildung \ref{fig:3par_plot_fehler_nach_N} zeigen
         \label{tab:dreidim}
     \end{center}
 \end{table}
-
-\begin{figure}[h!]
-    \begin{center}
-        \small
-        % \newlength\figureheight
-        % \newlength\figurewidth
-        \setlength\figureheight{5cm}
-        \setlength\figurewidth{0.6\textwidth}
-        \input{Plots/3dplot.tikz}
-    \end{center}
-    \caption{Entwicklung von $\Delta{}^\text{s}_{\text{N,max}}$ in Abhängigkeit von $N$ beim dreidimensionalen Parameterraum. Bei $N = 27$ wird die geforderte Fehlertoleranz von $10^{-8}$ erstmals erreicht.}
-    \label{fig:3par_plot_fehler_nach_N}
-\end{figure}
 
 % subsection mehrdimensionale_parameterr_ume (end)
 
